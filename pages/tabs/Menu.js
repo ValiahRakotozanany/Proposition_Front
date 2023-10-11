@@ -9,15 +9,16 @@ import Accueil from '../home/Accueil';
 import Proposer from '../Membres/Proposer';
 
 const Drawer = createDrawerNavigator();
-const Menuu = () => {
-  
+const Menuu = (props) => {
+ const token = props.token;
+  console.log("token menu = "+token)
   return (
     <NavigationContainer independent={true}>
       <Drawer.Navigator>     
-      <Drawer.Screen name='Accueil' component={Accueil}/>    
-     <Drawer.Screen name='Membres' component={Membres}/>        
-     <Drawer.Screen name='Profile' component={Profile}/> 
-     <Drawer.Screen name='Proposer' component={Proposer}/> 
+      <Drawer.Screen name='Accueil' component={Accueil} initialParams={{ token: token }}/>    
+     <Drawer.Screen name='Membres' component={Membres}  initialParams={{ token: token }}/>        
+     <Drawer.Screen name='Profile' component={Profile}    initialParams={{ token: token }}/> 
+     <Drawer.Screen name='Proposer' component={Proposer}   initialParams={{ token: token }}/> 
      
       </Drawer.Navigator>
     </NavigationContainer>

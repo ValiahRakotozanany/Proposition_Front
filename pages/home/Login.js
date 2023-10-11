@@ -52,7 +52,7 @@ const submit = () =>{
        .then((resultat)=>{
        if(resultat['data']!=null){
          console.log(resultat['data'][0].token+" mandeha");            
-         navigation.navigate ('Feed');  
+         navigation.navigate ('Feed', { token: resultat['data'][0].token });  
         }
         // setEnchere(resultat.data);
      //   sessionStorage.setItem('iduser',JSON.stringify(resultat.utilisateurid))

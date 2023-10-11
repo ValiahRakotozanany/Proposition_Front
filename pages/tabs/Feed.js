@@ -6,13 +6,15 @@ import { FakeData } from '../../data/FakeData'
 import { Button } from 'react-native-paper'
 import Menuu from './Menu'
 
-const Feed = ({navigation}) => {
+const Feed = ({navigation,route}) => {
+  const token = route.params.token;
+  console.log("token "+token)
   return (
     <ScrollView>
     <View style={StyleFeed.header}>  
       {/* <Button style={StyleFeed.userName}   onPress={() => navigation.navigate('Menu')} >Menu</Button>
       <Image source={require('../../assets/crevette.jpg')} style={StyleFeed.userImg} /> */}
-    <Menuu/>
+    <Menuu token={token}/>
     </View> 
     {/* <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
         return (<TouchableOpacity style={StyleFeed.scrollableListitem}>

@@ -9,7 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Bouton from './Bouton'
 import Proposer from '../Membres/Proposer'
 
-const Accueil = ({navigation,route}) => {
+const MaladieMembre = ({navigation,route}) => {
   const [data, setData] = React.useState([]);
   const [dataMembre, setDataMembre] = React.useState([]);
   const token = route.params.token;
@@ -107,7 +107,7 @@ const Accueil = ({navigation,route}) => {
   )
 }
 
-export default Accueil
+export default MaladieMembre
 /*
 <TouchableOpacity style={StyleFeed.scrollableListitem}>
                   <TouchableOpacity  onPress={() => toggleCollapse(item.id)} ><Text ><Text style={{fontWeight : 'bold'}}>{item.prenom}</Text> {item.nom}</Text>  
