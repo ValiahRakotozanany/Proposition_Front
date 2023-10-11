@@ -10,8 +10,8 @@ import Bouton from './Bouton'
 import Proposer from '../Membres/Proposer'
 
 const MaladieMembre = ({navigation,route}) => {
-  const [data, setData] = React.useState([]);
-  const [dataMembre, setDataMembre] = React.useState([]);
+
+  const{item} =  route.params;
   const token = route.params.token;
 
   const [isCollapsed, setIsCollapsed] = React.useState(true);
@@ -55,29 +55,6 @@ const MaladieMembre = ({navigation,route}) => {
     inputRange: [0, 1],
     outputRange: [0, 200], // Hauteur maximale du panneau
   });
-
-  React.useEffect(() => {
-    console.log("usee");
-    console.log("token '"+token+"'");
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Membre_Famille',    
-    {
-      method:"GET",      
-      headers : {"Content-Type":"application/json",
-      "Authorization": `Bearer ${token}`,}
-      
-    //  body: JSON.stringify({"email":email,"motdepasse":password})
-    })
-      .then((response) => {return response.json()})
-      .then((resultat) => {
-        // Mettez à jour l'état avec les données obtenues
-        console.log(resultat);
-        setData(resultat['data']);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la récupération des données:', error);
-      });
-  }, []);
-
 
     const handlePress = () => {
         console.log('Bouton cliqué !');
