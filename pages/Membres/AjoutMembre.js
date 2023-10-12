@@ -3,10 +3,35 @@ import { Button, Card, Checkbox, Text } from 'react-native-paper';
 import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import CardStyle from '../Style/CardStyle';
 import { TextInput } from 'react-native-gesture-handler';
-import DatePicker from 'react-native-datepicker';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
 const AjoutMembres = () => {
-  const [selectedDate, setSelectedDate] = React.useState('');
+  
+  const [date, setDate] = React.useState(new Date());
+  const [showPicker, setShowPicker] = React.useState(false);
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShowPicker(false);
+    setDate(currentDate);
+  };
+
+  return (
+    <>
+      <Button title="Select Date" onPress={() => setShowPicker(true)} />
+      {showPicker && (
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display="default"
+          onChange={onChange}
+        />
+      )}
+    </>
+  );/*
+  
+  const handleDateChange = (newDate) => {
+    setDate(newDate);
+  };
   return (
     <View>
     <ImageBackground source={require("../../assets/back1.jpg")}
@@ -18,7 +43,7 @@ const AjoutMembres = () => {
     <Text style={{ color: 'white', fontSize: 20 ,fontWeight : 'bold'}}></Text>
       <Text style={{ color: 'white', fontSize: 30, marginBottom: 40,fontWeight:'bold', letterSpacing: 5 }}>Ajout Membres<Text style={{color:'black'}}></Text></Text>
      
-      {/* <IconButton icon={'account'} iconColor={'red'} /> */}                
+      {/* <IconButton icon={'account'} iconColor={'red'} /> }                
     </View>
        <Card style={CardStyle.card}>
        <Card.Content>   
@@ -33,21 +58,18 @@ const AjoutMembres = () => {
 
 
 <Text>Sélectionnez votre date de naissance:</Text>
-        <DatePicker
-          style={{ width: 200 }}
-          date={this.state.selectedDate}
-          mode="date"
-          placeholder="Sélectionnez une date"
-          format="YYYY-MM-DD"
-          minDate="2020-01-01"
-          maxDate="2023-12-31"
-          confirmBtnText="Confirmer"
-          cancelBtnText="Annuler"
-          onDateChange={(date) => {
-            this.setState({ selectedDate: date });
-          }}
-        />
-        <Text>Date sélectionnée : {this.state.selectedDate}</Text>
+<DatePicker
+        style={{ width: 200 }}
+        date={date}
+        mode="date"
+        placeholder="Sélectionnez une date"
+        format="YYYY-MM-DD"
+        minDate="2000-01-01"
+        maxDate="2030-12-31"
+        confirmBtnText="Valider"
+        cancelBtnText="Annuler"
+        onDateChange={handleDateChange}
+      />      
         <TouchableOpacity ><Button style={CardStyle.btn} ><Text style={{letterSpacing: 2,
         color: 'white',
         fontFamily :'poppins-bold', textAlign: 'center' ,
@@ -63,7 +85,7 @@ const AjoutMembres = () => {
    
   </View></View>
   
-  );
+  );*/
 };
 
 export default AjoutMembres;

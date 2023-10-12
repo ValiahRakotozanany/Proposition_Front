@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Text ,Image} from 'react-native';
 import BottomSheet,{ BottomSheetRefProps } from '../tabs/BottomSheet';
 import ModalDropdown from 'react-native-modal-dropdown';
@@ -11,10 +11,43 @@ import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Bouton from '../home/Bouton';
 import Bouton2 from '../home/Bouton2';
-const Proposer = ({navigation}) => {
+const Proposer = ({navigation,route}) => {
+
+  const [checkedIngredients, setCheckedIngredients] = React.useState({});
   const ref = useRef<BottomSheetRefProps>(null);
   const [checked, setChecked] = React.useState(false);
 
+  const [dat, setDat] = React.useState([]);
+  const token = route.params.token;
+
+  const handleCheckboxChange = (ingredientId) => {
+    setCheckedIngredients({
+      ...checkedIngredients,
+      [ingredientId]: !checkedIngredients[ingredientId], // Inverse l'état
+    });
+  };
+
+  React.useEffect(() => {
+    console.log("usee");
+    console.log("token '"+token+"'");
+    fetch('http://26.22.221.140:8087/tiatanindrazana/Ingredient_Interdit',    
+    {
+      method:"GET",      
+      headers : {"Content-Type":"application/json",
+      "Authorization": `Bearer ${token}`,}
+      
+    //  body: JSON.stringify({"email":email,"motdepasse":password})
+    })
+      .then((response) => {return response.json()})
+      .then((resultat) => {
+        // Mettez à jour l'état avec les données obtenues
+        console.log(resultat);
+        setDat(resultat['data']);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
+  }, []);
 
 
   const [dataCheck, setData] = React.useState([
@@ -134,17 +167,17 @@ const Proposer = ({navigation}) => {
     ></TextInput><Button  style={{width:20,paddingHorizontal: 10,backgroundColor :'gray' }}> 
         <Icon name='search' size={20} color="white" />    </Button>
     </View>
-    <View>
-      {dataCheck.map((item) => (
-        <View key={item.id} style={{ flexDirection: 'row', alignItems: 'center' }}>
+    <ScrollView>
+    {dat.map((ingredient) => (
+        <View key={ingredient.id}>
+          <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
           <Checkbox
-            status={item.isChecked ? 'checked' : 'unchecked'}
-            onPress={() => toggleCheckbox(item.id)}
-          />
-          <Text>{item.label}</Text>
+      status={checkedIngredients[ingredient.id] ? 'checked' : 'unchecked'}
+      onPress={() => handleCheckboxChange(ingredient.id)}
+    />
         </View>
       ))}
-    </View>
+    </ScrollView>
     <View style={{flexDirection: 'row', marginTop:20}}>
         
 

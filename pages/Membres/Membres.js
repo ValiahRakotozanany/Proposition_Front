@@ -30,7 +30,7 @@ const Membres = ({navigation}) => {
         setChecked(!checked);
       }}
     /> */}
-<Bouton title='Ajout Membre' onPress={() => navigation.navigate('AjoutM')} />
+<Bouton title='Ajout Membre' onPress={() => navigation.navigate('AjoutMembres')} />
 {/* 
   <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
         return (<TouchableOpacity style={StyleFeed.scrollableListitem}>

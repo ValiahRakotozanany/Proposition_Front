@@ -12,7 +12,7 @@ import Proposer from '../Membres/Proposer'
 const MaladieMembre = ({navigation,route}) => {
 
   const{item} =  route.params;
-  const token = route.params.token;
+ // const token = route.params.token;
 
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [idmembre, setIdmembre] = React.useState(true);
@@ -61,25 +61,10 @@ const MaladieMembre = ({navigation,route}) => {
       };
   return (
     <View >
-      {/* <Button style={CardStyle.btn2} onPress={() => navigation.navigate('Proposer',data )} ><Text style={{letterSpacing: 1,
-        color: 'white',fontFamily :'poppins-bold',fontWeight:'bold', alignItems: 'center',
-}}>Proposer + </Text></Button>  */}
-<Bouton title='Proposition' onPress={() => navigation.navigate('Proposer')} />
-      <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
-        return (<TouchableOpacity style={StyleFeed.scrollableListitem}>
-                  <Text ><Text style={{fontWeight : 'bold'}}>{item.prenom}</Text> {item.nom}</Text>                   
-                  <Button title="Détails"
-        onPress={() => navigation.navigate('MaladieMembre', { item })} // Naviguer vers les détails avec l'élément en tant que paramètre
-      />
-                  <Animated.View style={{ height: panelHeight, overflow: 'hidden' }}>
-                  MaladieMembre
-                   <Text>{item.prenom}                  
-                     </Text>
-                 </Animated.View>            
-            </TouchableOpacity>
-            
-            )}}
-     data={data}/>
+       <View>
+      <Text>Nom : {item.nom}</Text>
+      <Text>Prenom : {item.prenom}</Text>
+    </View>
     </View>
   )
 }
