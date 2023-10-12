@@ -11,7 +11,7 @@ const Profile =  ({  navigation ,route})  => {
     console.log("token '"+token+"'");
     fetch('http://26.22.221.140:8087/tiatanindrazana/Ingredient_Interdit',    
     {
-      method:"GET",      
+      method:"GET",
       headers : {"Content-Type":"application/json",
       "Authorization": `Bearer ${token}`,}
       

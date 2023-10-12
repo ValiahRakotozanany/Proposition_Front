@@ -47,6 +47,14 @@ const Proposer = ({navigation,route}) => {
       .catch((error) => {
         console.error('Erreur lors de la récupération des données:', error);
       });
+
+      if (dat.length > 0) {
+        const updatedData = dat.map((ingredient) => ({
+          ...ingredient,
+          checked: true,
+        }));
+        setData(updatedData);
+      }
   }, []);
 
 
@@ -169,11 +177,11 @@ const Proposer = ({navigation,route}) => {
     </View>
     <ScrollView>
     {dat.map((ingredient) => (
-        <View key={ingredient.id}>
+        <View key={ingredient.idingredientmaladie}>
           <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
           <Checkbox
-      status={checkedIngredients[ingredient.id] ? 'checked' : 'unchecked'}
-      onPress={() => handleCheckboxChange(ingredient.id)}
+      status={checkedIngredients[ingredient.idingredientmaladie] ? 'checked' : 'unchecked'}
+      onPress={() => handleCheckboxChange(ingredient.idingredientmaladie)}
     />
         </View>
       ))}
