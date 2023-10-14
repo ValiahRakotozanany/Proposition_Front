@@ -1,8 +1,8 @@
 import { View, Text,Animated  } from 'react-native'
-import React from 'react'
+import React,{useEffect} from 'react'
 import StyleFeed from '../tabs/style'
 import { FakeData } from '../../data/FakeData'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
+import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 import { Button } from 'react-native-paper'
 import CardStyle from '../Style/CardStyle'
 import LinearGradient from 'react-native-linear-gradient';
@@ -11,25 +11,17 @@ import Proposer from '../Membres/Proposer'
 
 const MaladieMembre = ({navigation,route}) => {
 
-  const{item} =  route.params;
+  const{item,token} =  route.params;
  // const token = route.params.token;
-
+  const [data,setData] = React.useState([]);
   const [isCollapsed, setIsCollapsed] = React.useState(true);
   const [idmembre, setIdmembre] = React.useState(true);
   const animation = React.useRef(new Animated.Value(0)).current;
 
-  const toggleCollapse = (id) => {
-    setIdmembre(id);
-    const toValue = isCollapsed ? 1 : 0;
-    Animated.timing(animation, {
-      toValue,
-      duration: 300, // Durée de l'animation en millisecondes
-      useNativeDriver: false, // Utilisation du pilote natif pour l'animation
-    }).start();
-    setIsCollapsed(!isCollapsed);
-
-
-    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+idmembre,    
+  useEffect(() => {
+    console.log("membre"+item.id);
+    console.log("token '"+token+"'");
+    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+item.id,    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -41,13 +33,12 @@ const MaladieMembre = ({navigation,route}) => {
       .then((resultat) => {
         // Mettez à jour l'état avec les données obtenues
         console.log(resultat);
-        setDataMembre(resultat['data']);
+        setData(resultat['data']);
       })
       .catch((error) => {
         console.error('Erreur lors de la récupération des données:', error);
       });
-
-  };
+  }, []);
 
 
 
@@ -60,12 +51,39 @@ const MaladieMembre = ({navigation,route}) => {
         console.log('Bouton cliqué !');
       };
   return (
-    <View >
-       <View>
-      <Text>Nom : {item.nom}</Text>
-      <Text>Prenom : {item.prenom}</Text>
+    <View>
+      <Text></Text>
+      <View style={{backgroundColor:'white',alignContent:'center', alignItems:'center' }}>
+       <Text style={{ color: 'black', fontSize:20 ,fontWeight:'bold', letterSpacing: 2,alignContent:'center', alignItems:'center'}}>{item.prenom}<Text style={{color:'grey'}}> {item.nom}</Text></Text>
+       <Text style={{ color: 'black', fontSize:10 , marginBottom: 10, letterSpacing: 2}}>Date de naissance : {item.datenaissance}<Text style={{color:'black'}}></Text></Text>
+       
+   <TouchableOpacity  style={{width:100,height:50,marginLeft:250 ,marginTop:8}}>      
+      <LinearGradient      
+        colors={['#f89b29','#bf0fff']} // Couleurs du gradient
+        start={{ x: 0, y: 0 }} // Point de départ du gradient (en pourcentage)
+        end={{ x: 1.3, y: 0 }} // Point d'arrêt du gradient (en pourcentage)
+         style={{ padding: 10 ,borderWidth:1,borderRadius: 100 ,borderColor:'#d8dbe9'}} // Styles du gradient
+>   
+
+    <Text style={{ color: 'white', textAlign: 'center' ,fontWeight:'bold',fontFamily:'poppins'}}>Ajout +</Text>
+      </LinearGradient>      
+    </TouchableOpacity>   
     </View>
+    <Text></Text>   
+    {Array.isArray(data) && data.map((item) => (
+  <View key={item.id} style={StyleFeed.scrollableListitem}>
+    <View>
+      <Text style={{ color: 'black', fontSize: 15, letterSpacing: 0.5 }}>
+        {item.maladie}
+        
+      </Text><Text style={{ color: 'grey' }}>{item.etatlib} </Text>
     </View>
+  </View>
+))}
+
+    </View>
+
+
   )
 }
 

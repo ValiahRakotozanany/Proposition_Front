@@ -17,6 +17,40 @@ const AjoutMembres = () => {
     setDate(currentDate);
   };
 
+
+
+  const ajoutmembre = (id) => {
+    setIdmembre(id);
+    const toValue = isCollapsed ? 1 : 0;
+    Animated.timing(animation, {
+      toValue,
+      duration: 300, // Durée de l'animation en millisecondes
+      useNativeDriver: false, // Utilisation du pilote natif pour l'animation
+    }).start();
+    setIsCollapsed(!isCollapsed);
+
+
+    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+idmembre,    
+    {
+      method:"GET",      
+      headers : {"Content-Type":"application/json",
+      "Authorization": `Bearer ${token}`,}
+      
+    //  body: JSON.stringify({"email":email,"motdepasse":password})
+    })
+      .then((response) => {return response.json()})
+      .then((resultat) => {
+        // Mettez à jour l'état avec les données obtenues
+        console.log(resultat);
+        setDataMembre(resultat['data']);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
+
+  };
+
+
   return (
     <View>                 
     <ImageBackground source={require("../../assets/backp.jpg")}
@@ -24,9 +58,7 @@ const AjoutMembres = () => {
     <View style={{ position: "absolute" }}>    
       <View style={CardStyle.container}>
     <Text style={{ color: 'white', fontSize: 64 ,fontWeight : 'bold'}}></Text>
-    <Text style={{ color: 'white', fontSize:25 , marginBottom: 40,fontWeight:'bold', letterSpacing: 4 }}>Ajout Membres<Text style={{color:'black'}}></Text></Text>
-    <Text style={{ color: 'white', fontSize: 10 ,fontWeight : 'bold'}}></Text>
-    
+    <Text style={{ color: 'white', fontSize:25 , marginBottom: 40,fontWeight:'bold', letterSpacing: 4 }}>Ajout Membres<Text style={{color:'black'}}></Text></Text>    
                           
     </View>
        <Card style={CardStyle.card}>

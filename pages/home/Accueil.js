@@ -51,6 +51,7 @@ const Accueil = ({navigation,route}) => {
 
 
 
+
   const panelHeight = animation.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 200], // Hauteur maximale du panneau
@@ -78,6 +79,9 @@ const Accueil = ({navigation,route}) => {
       });
   }, []);
 
+  const navigateToMaladiesMembre = (item,token) => {
+    navigation.navigate("MaladieMembre", { item,token });
+  };
 
     const handlePress = () => {
         console.log('Bouton cliqué !');
@@ -91,9 +95,8 @@ const Accueil = ({navigation,route}) => {
       <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
         return (<View style={StyleFeed.scrollableListitem}>
           <View>
-           <Text>{item.nom}</Text>
-           <Button title="Détails" onPress={() => navigation.navigate("MaladieMembre", { item })} // Naviguer vers les détails avec l'élément en tant que paramètre
-           />
+          <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}>{item.prenom}<Text style={{color:'grey'}}>   {item.nom}</Text></Text>
+           <Button title="Détails" onPress={() => navigateToMaladiesMembre(item,token)}><Text>Details → </Text></Button>                    
          </View>          
    </View>
             
