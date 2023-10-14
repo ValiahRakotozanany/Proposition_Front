@@ -25,11 +25,12 @@ const CardStyle = StyleSheet.create({
         // marginRight : 10,
         // position: "center",
         marginLeft: 40,
+        borderRadius:30,
         width: 300,
         backgroundColor : 'white',
         paddingVertical: PADDING.vertical,
         //backgroundColor : '#F77278'   ,
-         opacity : 0.89,
+         opacity : 0.95,
     },
     input2: {
         marginTop: 10,
