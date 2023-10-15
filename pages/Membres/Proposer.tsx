@@ -125,11 +125,11 @@ const Proposer = ({navigation,route}) => {
         //  onSelect={(index, value) => this.setState({ selectedOption: value })}
         />
 
-<TouchableOpacity  onPress={showModal}  ><Button style={CardStyle.btn2}><Text style={{color: 'grey', fontSize: 15 }}>Critères
-        <MaterialCommunityIcons name="transfer-down" size={18} /> </Text></Button></TouchableOpacity>        
+<TouchableOpacity  onPress={showModal} style={CardStyle.input}><Button><Text style={{color: 'grey', fontSize: 15 }}>Critères ...
+         </Text></Button></TouchableOpacity>        
         
 
-<TouchableOpacity  onPress={onPress} ><Button style={CardStyle.btn2}><Text style={{color: 'grey', fontSize: 15 }}><MaterialCommunityIcons name="transfer-down" size={18} /> Choix plat
+<TouchableOpacity  onPress={onPress} style={CardStyle.input} ><Button><Text style={{color: 'grey', fontSize: 15 }}> Choix plat <MaterialCommunityIcons name="transfer-down" size={18} />
         </Text></Button></TouchableOpacity>
         
 
@@ -144,7 +144,7 @@ const Proposer = ({navigation,route}) => {
       <View style={styles.container}>
       
         <BottomSheet ref={ref}>
-          <View style={{ flex: 1, backgroundColor: 'orange'}} >
+          <View style={{ flex: 1, backgroundColor: 'grey'}} >
             
           </View>
         </BottomSheet>
@@ -188,9 +188,8 @@ const Proposer = ({navigation,route}) => {
     </ScrollView>
     <View style={{flexDirection: 'row', marginTop:20}}>
         
+    <Button onPress={hideModal} style={{}}>Valider</Button><Button onPress={hideModal}>Annuler</Button>
 
-      <Bouton2  title='Valider'  color1='#0e1c26' color2='#43c197' onPress={() => navigation.navigate('Proposer')} /><Text>    </Text>
-        <Bouton2 onPress={hideModal}  title='Annuler'  color1='#bbc7dc' color2='#bbc7dc' />     
         </View>
         </View>
       </Modal>

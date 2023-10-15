@@ -32,7 +32,7 @@ const Inscription = ({navigation}) => {
       placeholder="Email"
     />             
        <TextInput style={CardStyle.input}
-         secureTextEntry={true}
+         secureTextEntry={true} 
        placeholder={"Mot de passe"}
     /> 
         <TouchableOpacity onPress={() => navigation.navigate('Feed') }  style={CardStyle.btn} ><Text style={{letterSpacing: 2,

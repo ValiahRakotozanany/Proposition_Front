@@ -53,6 +53,15 @@ flexDirection : 'row' ,
         borderRadius : 5,
         backgroundColor : 'white' ,
         marginBottom : 10
+    },rond :{
+        width:50,
+        borderRadius:20,
+        backgroundColor:'white',
+        fontSize:28,marginLeft:300,
+        flexDirection:'center',
+        shadowOpacity:1,
+        shadowColor:'grey',
+        borderColor:'black'
     }
 
 });

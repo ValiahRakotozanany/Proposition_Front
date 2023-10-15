@@ -9,6 +9,7 @@ import Accueil from '../home/Accueil';
 import Proposer from '../Membres/Proposer';
 import AjoutMembres from '../Membres/AjoutMembre';
 import MaladieMembre from '../home/MaladieMembre';
+import AjoutMaladieM from '../Membres/AjoutMaladieM';
 
 const Drawer = createDrawerNavigator();
 const Menuu = (props) => {
@@ -23,6 +24,7 @@ const Menuu = (props) => {
      <Drawer.Screen name='Proposer' component={Proposer}   initialParams={{ token: token }}/> 
      <Drawer.Screen name='AjoutMembres' component={AjoutMembres}   initialParams={{ token: token }}/> 
      <Drawer.Screen name='MaladieMembre' component={MaladieMembre}   initialParams={{ token: token }}/> 
+     <Drawer.Screen name='AjoutMaladieM' component={AjoutMaladieM}   initialParams={{ token: token }}/> 
       </Drawer.Navigator>
     </NavigationContainer>
   );

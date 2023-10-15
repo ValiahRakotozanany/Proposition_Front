@@ -80,7 +80,27 @@ const Accueil = ({navigation,route}) => {
   }, []);
 
   const navigateToMaladiesMembre = (item,token) => {
-    navigation.navigate("MaladieMembre", { item,token });
+    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+item.id,    
+    {
+      method:"GET",      
+      headers : {"Content-Type":"application/json",
+      "Authorization": `Bearer ${token}`,}
+      
+    //  body: JSON.stringify({"email":email,"motdepasse":password})
+    })
+      .then((response) => {return response.json()})
+      .then((resultat) => {
+        // Mettez à jour l'état avec les données obtenues
+        console.log(resultat);
+        setDataMembre(resultat);
+        console.log(dataMembre+"dataaa");
+        navigation.navigate("MaladieMembre", { item, token, dataMembre: resultat['data'] });
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
+      console.log(dataMembre+" avant la navigation ");
+  //  navigation.navigate("MaladieMembre", { item,token, dataMembre});
   };
 
     const handlePress = () => {
@@ -91,12 +111,19 @@ const Accueil = ({navigation,route}) => {
       {/* <Button style={CardStyle.btn2} onPress={() => navigation.navigate('Proposer',data )} ><Text style={{letterSpacing: 1,
         color: 'white',fontFamily :'poppins-bold',fontWeight:'bold', alignItems: 'center',
 }}>Proposer + </Text></Button>  */}
-<Bouton title='Proposition' onPress={() => navigation.navigate('Proposer')} />
+<Bouton title='Proposition' titre='Membres de la Famille' onPress={() => navigation.navigate('Proposer')} />
+<View><TouchableOpacity style={StyleFeed.rond}><Text style={{fontSize:28 ,fontWeight:'bold'}} 
+ onPress={() => navigation.navigate('AjoutMembres',{token: token})}>  +</Text></TouchableOpacity></View>
       <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
         return (<View style={StyleFeed.scrollableListitem}>
           <View>
-          <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}>{item.prenom}<Text style={{color:'grey'}}>   {item.nom}</Text></Text>
-           <Button title="Détails" onPress={() => navigateToMaladiesMembre(item,token)}><Text>Details → </Text></Button>                    
+          <Button title="Détails" style={{justifyContent:'flex-start',alignItems:'flex-start'}} onPress={() => navigateToMaladiesMembre(item,token)}>
+            <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}>{item.prenom}<Text style={{color:'grey'}}>   {item.nom}</Text>
+           
+           </Text></Button>
+          <View>              
+           <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>✖️    🖊️</Text></TouchableOpacity>
+           </View>
          </View>          
    </View>
             

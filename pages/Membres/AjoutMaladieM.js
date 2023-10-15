@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Button, Checkbox, Text } from 'react-native-paper';
 import { View } from 'react-native';
 import CardStyle from '../Style/CardStyle';
-const Membres = ({navigation}) => {
+const AjoutMaladieM = ({navigation}) => {
   const [checked, setChecked] = React.useState(false);
 
   return (
@@ -23,4 +23,4 @@ const Membres = ({navigation}) => {
   );
 };
 
-export default Membres;
+export default AjoutMaladieM;

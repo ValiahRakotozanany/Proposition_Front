@@ -8,12 +8,16 @@ import { FakeData } from '../../data/FakeData';
 import Bouton from '../home/Bouton';
 import Modal from 'react-native-modal';
 import AjoutMembres from './AjoutMembre';
-
+import { useRoute } from '@react-navigation/native';
 
 const Membres = ({navigation}) => {
+  
+  const route = useRoute();  
+  const {token} = route.params;
+  console.log(token+" token memnre");
   const [checked, setChecked] = React.useState(false);
   const [modalVisible, setModalVisible] = React.useState(false);
-
+console.log(token +" membre token")
   const showModal = () => {
     setModalVisible(true);
   };
@@ -30,7 +34,7 @@ const Membres = ({navigation}) => {
         setChecked(!checked);
       }}
     /> */}
-<Bouton title='Ajout Membre' onPress={() => navigation.navigate('AjoutMembres')} />
+<Bouton title='Ajout Membre' onPress={() => navigation.navigate('AjoutMembres',{token: token})} />
 {/* 
   <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
         return (<TouchableOpacity style={StyleFeed.scrollableListitem}>

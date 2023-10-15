@@ -4,9 +4,11 @@ import { ImageBackground, TouchableOpacity, View } from 'react-native';
 import CardStyle from '../Style/CardStyle';
 import { TextInput } from 'react-native-gesture-handler';
 import DatePicker from 'react-native-date-picker';
+import { useRoute } from '@react-navigation/native';
 const AjoutMembres = () => {
-  
+  const route = useRoute();  
   const [date, setDate] = React.useState();
+  const [data, setData] = React.useState();
   const [datefin, setDatefin] = React.useState(new Date());
   const [showPicker, setShowPicker] = React.useState(false);
   const [openDatefin, setOpenDatefin] = React.useState(false);
@@ -16,23 +18,26 @@ const AjoutMembres = () => {
     setShowPicker(false);
     setDate(currentDate);
   };
+  const {token} = route.params;
+  const [nom, setNom] = React.useState();
+  const [prenom, setPrenom] = React.useState();
 
 
+  const ajoutmembre = () => {
+  //  setIdmembre(id);
+    // const toValue = isCollapsed ? 1 : 0;
+    // Animated.timing(animation, {
+    //   toValue,
+    //   duration: 300, // Durée de l'animation en millisecondes
+    //   useNativeDriver: false, // Utilisation du pilote natif pour l'animation
+    // }).start();
+    // setIsCollapsed(!isCollapsed);
+    console.log(datefin.getFullYear()+'-'+datefin.getMonth(0)+'-'+datefin.getDate());
+const d = datefin.getDate()+'-'+datefin.getMonth(0)+'-'+datefin.getFullYear();
 
-  const ajoutmembre = (id) => {
-    setIdmembre(id);
-    const toValue = isCollapsed ? 1 : 0;
-    Animated.timing(animation, {
-      toValue,
-      duration: 300, // Durée de l'animation en millisecondes
-      useNativeDriver: false, // Utilisation du pilote natif pour l'animation
-    }).start();
-    setIsCollapsed(!isCollapsed);
-
-
-    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+idmembre,    
+   fetch('http://26.22.221.140:8087/tiatanindrazana/Membre_Famille?nom='+nom+'&prenom='+prenom+'&datenaissance='+d,    
     {
-      method:"GET",      
+      method:"POST",      
       headers : {"Content-Type":"application/json",
       "Authorization": `Bearer ${token}`,}
       
@@ -42,7 +47,7 @@ const AjoutMembres = () => {
       .then((resultat) => {
         // Mettez à jour l'état avec les données obtenues
         console.log(resultat);
-        setDataMembre(resultat['data']);
+        setData(resultat['data']);
       })
       .catch((error) => {
         console.error('Erreur lors de la récupération des données:', error);
@@ -65,11 +70,14 @@ const AjoutMembres = () => {
        <Card.Content>          
        
        <TextInput style={CardStyle.input} 
-      placeholder="Nom"
+      placeholder="Nom" onChangeText={text => setNom(text)}
+      value={nom}
     />             
        <TextInput style={CardStyle.input}
          secureTextEntry={true}
        placeholder={"Prenom"}
+       onChangeText={text => setPrenom(text)}
+       value={prenom}
     /> 
     
     <Button onPress={() => setOpenDatefin(true)} style={CardStyle.input}><Text>Date : {datefin ? datefin.getUTCFullYear()+'/'+datefin.getMonth()+'/'+datefin.getDate() : 'Aucune date '}</Text></Button>
@@ -91,7 +99,7 @@ const AjoutMembres = () => {
      cancelText="Annuler"
    />
 
-<TouchableOpacity ><Button style={CardStyle.btn} ><Text style={{letterSpacing: 2,
+<TouchableOpacity ><Button style={CardStyle.btn} onPress={ajoutmembre}><Text style={{letterSpacing: 2,
         color: 'white',
         fontFamily :'poppins-bold', textAlign: 'center' ,
 }}>Ajouter membre</Text></Button></TouchableOpacity> 

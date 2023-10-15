@@ -5,10 +5,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import StyleFeed from '../tabs/style';
 
-const Bouton = ({title,onPress}) => {
+const Bouton = ({title,onPress,titre}) => {
   return (
     <View style={StyleFeed.header1}>
-    <TouchableOpacity onPress={onPress} style={{width:120,height:50,marginLeft:250 ,marginTop:8}}>
+      <Text style={{ color: 'black', fontSize:18 ,fontWeight:'bold',  letterSpacing: 1 }}>{titre}</Text>
+    <TouchableOpacity onPress={onPress} style={{width:120,height:50,marginLeft:80 ,marginTop:8}}>
       <LinearGradient      
         colors={['#f89b29','#bf0fff']} // Couleurs du gradient
         start={{ x: 0, y: 0 }} // Point de départ du gradient (en pourcentage)

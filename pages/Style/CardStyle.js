@@ -92,19 +92,41 @@ const CardStyle = StyleSheet.create({
         marginVertical: 10,
         backgroundColor : '#e3e3e3',
         color: 'black',
-        fontFamily :'poppins-bold',
-//       backgroundColor: 'linear-gradient(to bottom, #3498db, #f39c12)', // Définissez vos couleurs de gradient ici        
-//         backgroundColor: 'hsla(270, 94%, 25%, 1)',
-
-// backgroundColor: 'linear-gradient(90deg, hsla(270, 94%, 25%, 1) 0%, hsla(158, 94%, 49%, 1) 100%)',
-
-// background: -moz-linear-gradient(90deg, hsla(270, 94%, 25%, 1) 0%, hsla(158, 94%, 49%, 1) 100%);
-
-// background: -webkit-linear-gradient(90deg, hsla(270, 94%, 25%, 1) 0%, hsla(158, 94%, 49%, 1) 100%);
-
-// filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#42047e", endColorstr="#07f49e", GradientType=1 );
-
-    }
+        fontFamily :'poppins-bold'    },     
+        dropdown: {
+          height: 50,
+          borderColor: 'gray',
+          borderWidth: 0.5,
+          borderRadius: 8,
+          paddingHorizontal: 8,
+          marginBottom: 10,
+        },
+        icon: {
+          marginRight: 5,
+        },
+        label: {
+          position: 'absolute',
+          backgroundColor: 'white',
+          left: 22,
+          top: 8,
+          zIndex: 999,
+          paddingHorizontal: 8,
+          fontSize: 14,
+        },
+        placeholderStyle: {
+          fontSize: 16,
+        },
+        selectedTextStyle: {
+          fontSize: 16,
+        },
+        iconStyle: {
+          width: 20,
+          height: 20,
+        },
+        inputSearchStyle: {
+          height: 40,
+          fontSize: 16,
+        }
 });
 
 export default CardStyle

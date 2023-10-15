@@ -9,6 +9,7 @@ import Feed from '../pages/tabs/Feed';
 import AjoutMembres from '../pages/Membres/AjoutMembre';
 import Membres from '../pages/Membres/Membres';
 import MaladieMembre from '../pages/home/MaladieMembre';
+import AjoutMaladieM from '../pages/Membres/AjoutMaladieM';
 
 
 export default function Routes() {
@@ -23,7 +24,7 @@ export default function Routes() {
         <Stack.Screen name="AjoutMembres" component={AjoutMembres} />
         <Stack.Screen name="Proposer" component={Proposer} />
         <Stack.Screen name="Membre" component={Membres} />        
-         
+        <Stack.Screen name="AjoutMaladieM" component={AjoutMaladieM} />   
       </Stack.Navigator>         
       </NavigationContainer>
     );
