@@ -47,7 +47,22 @@ const CardStyle = StyleSheet.create({
       //  paddingHorizontal: 10,
        // marginVertical: 10
 
-    },
+    },input3: {
+      marginLeft: 30,
+      
+   //  marginRight:10,
+      width:100,
+      height: 40,
+      alignItems : 'center',
+    //  position: 'center',
+      borderWidth: 1.5, // Épaisseur de la bordure
+      borderColor: '#DCDCDC', 
+        //borderColor: isFocused ? 'blue' : 'gray', 
+      borderRadius : 100     ,
+      backgroundColor : 'white',
+      paddingHorizontal: 10,
+      marginVertical: 10
+  },
     input: {
         marginTop: 10,
         marginBottom: 10,
@@ -115,9 +130,11 @@ const CardStyle = StyleSheet.create({
         },
         placeholderStyle: {
           fontSize: 16,
+          color:'black'
         },
         selectedTextStyle: {
           fontSize: 16,
+          color:'black'
         },
         iconStyle: {
           width: 20,

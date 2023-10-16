@@ -85,6 +85,34 @@ const Proposer = ({navigation,route}) => {
     } else {
       ref?.current?.scrollTo(-200);
     }
+
+    fetch('http://26.22.221.140:8087/tiatanindrazana/Typeplat',    
+    {
+      method:"GET",      
+      headers : {"Content-Type":"application/json",
+      "Authorization": `Bearer ${token}`,}
+      
+    //  body: JSON.stringify({"email":email,"motdepasse":password})
+    })
+      .then((response) => {return response.json()})
+      .then((resultat) => {
+        // Mettez à jour l'état avec les données obtenues
+        console.log(resultat);
+        setDat(resultat['data']);
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
+
+      if (dat.length > 0) {
+        const updatedData = dat.map((ingredient) => ({
+          ...ingredient,
+          checked: true,
+        }));
+        setData(updatedData);
+      }
+ 
+
   }, []);
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -144,8 +172,25 @@ const Proposer = ({navigation,route}) => {
       <View style={styles.container}>
       
         <BottomSheet ref={ref}>
-          <View style={{ flex: 1, backgroundColor: 'grey'}} >
-            
+        <View style={{ flex: 1, backgroundColor: 'white',padding:20 }}>
+            <View style={{}}>
+            <Text style={{ color: 'black', fontSize: 30, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}>A completer</Text>
+              <ScrollView>
+               {dat.map((ingredient) => (
+                <View key={ingredient.idingredientmaladie} style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
+                <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
+                 <Checkbox
+                status={checkedIngredients[ingredient.idingredientmaladie] ? 'checked' : 'unchecked'}
+               onPress={() => handleCheckboxChange(ingredient.idingredientmaladie)}
+    />
+    <TextInput style={CardStyle.input3} />
+
+        </View>
+      ))}
+      <Text style={{ color: 'black', fontSize: 30, marginBottom: 130,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
+    </ScrollView>
+    <Text style={{ color: 'black', fontSize: 40, marginBottom: 60,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
+            </View>
           </View>
         </BottomSheet>
       </View>
@@ -166,7 +211,7 @@ const Proposer = ({navigation,route}) => {
      backdropTransitionInTiming={1}
      style={{}}>
         <View style={{ flex: 1, backgroundColor: 'white',padding:20,borderRadius:18 }}>
-        <Text style={{ color: 'black',alignItems: 'center', fontSize: 25 ,fontWeight : 'bold' , marginTop:5}}>Les Critères des Membres</Text>
+        <Text style={{ color: 'black',alignItems: 'center', fontSize: 25 ,fontWeight : 'bold' , marginTop:5}}> Ingrédients à éviter</Text>
 
         <Text style={{ color: 'black',alignItems: 'center', fontSize: 5 , marginTop:5}}></Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -180,7 +225,7 @@ const Proposer = ({navigation,route}) => {
         <View key={ingredient.idingredientmaladie}>
           <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
           <Checkbox
-      status={checkedIngredients[ingredient.idingredientmaladie] ? 'checked' : 'unchecked'}
+      status={'checked'}
       onPress={() => handleCheckboxChange(ingredient.idingredientmaladie)}
     />
         </View>

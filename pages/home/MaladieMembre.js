@@ -11,9 +11,12 @@ import Proposer from '../Membres/Proposer'
 import Modal from 'react-native-modal';
 import {Dropdown} from 'react-native-element-dropdown';
 const MaladieMembre = ({navigation,route}) => {
-  const select = ['Option 1', 'Option 2', 'Option 3'];
+  const select = [
+    { label: 'Intolérance', value: '2' },
+    { label: 'Maladie', value: '1' },
+  ];
   const{item,token,dataMembre} =  route.params;
-
+console.log(select+"  SLEEECCTTT");
  // const token = route.params.token;
  const [country, setCountry] = React.useState(null);
  const [isFocus, setIsFocus] = React.useState(false);
@@ -25,14 +28,67 @@ const MaladieMembre = ({navigation,route}) => {
   const da = dataMembre['data'];
   console.log(da+" daaaaaaa");
   const [modalVisible, setModalVisible] = React.useState(false);
-
+  const [countryData, setCountryData] = React.useState([]);
+  const [maladie, setMaladie] = React.useState([]);
   const showModal = () => {
     setModalVisible(true);
+    fetch('http://26.22.221.140:8087/tiatanindrazana/Maladie',    
+    {
+      method:"GET",      
+      headers : {"Content-Type":"application/json", 
+      "Authorization": `Bearer ${token}`,}
+      
+    //  body: JSON.stringify({"email":email,"motdepasse":password})
+    })
+      .then((response) => {return response.json()})
+      .then((resultat) => {
+        // Mettez à jour l'état avec les données obtenues
+        console.log(resultat);
+        setMaladie(resultat.data);
+        const transformedData = maladie.map(item => ({
+          label: item.maladie,
+          value: item.id
+       }));       
+       console.log(transformedData+"transforme");
+       setCountryData(transformedData);
+       console.log(countryData+" maladiiie");
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
   };
+  React.useEffect(() => {
+    console.log("usee");
+    console.log("token '"+token+"'");
+   
+  }, []);
 
   const hideModal = () => {
     setModalVisible(false);
   };
+  const ajouter=()=>{
+    fetch('http://26.22.221.140:8087/tiatanindrazana/Maladie?idmembre='+item.id+'&idmaladie='+country,    
+    {
+      method:"POST",      
+      headers : {"Content-Type":"application/json",
+      "Authorization": `Bearer ${token}`,}
+      
+    //  body: JSON.stringify({"email":email,"motdepasse":password})
+    })
+      .then((response) => {return response.json()})
+      .then((resultat) => {
+        console.log(country);
+        // Mettez à jour l'état avec les données obtenues
+        console.log(resultat);
+       
+       console.log(resultat+" resultat");
+        console.log("ajouté");
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
+      setModalVisible(false);
+  }
 /*
 
   useEffect(() => {
@@ -70,9 +126,9 @@ const MaladieMembre = ({navigation,route}) => {
   return (
     <View>
       <Text></Text>
-      <View style={{backgroundColor:'white',alignContent:'center', alignItems:'center' }}>
-       <Text style={{ color: 'black', fontSize:20 ,fontWeight:'bold', letterSpacing: 2,alignContent:'center', alignItems:'center'}}>{item.prenom}<Text style={{color:'grey'}}> {item.nom}</Text></Text>
-       <Text style={{ color: 'black', fontSize:10 , marginBottom: 10, letterSpacing: 2}}>Date de naissance : {item.datenaissance}<Text style={{color:'black'}}></Text></Text>
+      <View style={{backgroundColor:'white'}}>
+       <Text style={{ color: 'black', fontSize:20 ,fontWeight:'bold', letterSpacing: 2,alignContent:'center', alignItems:'center'}}>   {item.prenom}<Text style={{color:'grey'}}> {item.nom}</Text></Text>
+       <Text style={{ color: 'black', fontSize:10 , marginTop: 12, letterSpacing: 2}}>    {item.datenaissance}<Text style={{color:'black'}}></Text></Text>
        
    <TouchableOpacity  style={{width:100,height:50,marginLeft:250 ,marginTop:8}}  onPress={showModal}>      
       <LinearGradient      
@@ -112,40 +168,36 @@ const MaladieMembre = ({navigation,route}) => {
      backdropTransitionInTiming={1}
      style={{}}>
         <View style={{ flex: 1, backgroundColor: 'white',padding:20,borderRadius:18 }}>
-        <Text style={{ color: 'black',alignItems: 'center', fontSize: 25 ,fontWeight : 'bold' , marginTop:5}}>Les Critères des Membres</Text>
+        <Text style={{ color: 'black',alignItems: 'center', fontSize: 25 ,fontWeight : 'bold' , marginTop:5}}>Maladies</Text>
 
         <Text style={{ color: 'black',alignItems: 'center', fontSize: 5 , marginTop:5}}></Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TextInput style={CardStyle.input}       
-      placeholder="Recherche Critère"
-    ></TextInput>
+           </View> 
    <Dropdown
           style={[CardStyle.dropdown, isFocus && {borderColor: 'blue'}]}
           placeholderStyle={CardStyle.placeholderStyle}
           selectedTextStyle={CardStyle.selectedTextStyle}
           inputSearchStyle={CardStyle.inputSearchStyle}
           iconStyle={CardStyle.iconStyle}
-          data={select}
+          data={countryData}
           search
           maxHeight={300}
           labelField="label"
           valueField="value"
-          placeholder={!isFocus ? 'Select country' : '...'}
+          placeholder={!isFocus ? 'Select Maladie' : '...'}
           searchPlaceholder="Search..."
           value={country}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {
             setCountry(item.value);
-            handleState(item.value);
-            setCountryName(item.label);
             setIsFocus(false);
           }}
         />
-    </View>   
+      
     <View style={{flexDirection: 'row', marginTop:20}}>
         
-    <Button onPress={hideModal} style={{}}>Valider</Button><Button onPress={hideModal}>Annuler</Button>
+    <Button onPress={ajouter} style={{}}>Ajouter</Button><Button onPress={hideModal}>Annuler</Button>
 
         </View>
         </View>

@@ -23,7 +23,7 @@ const Menuu = (props) => {
      <Drawer.Screen name='Profile' component={Profile}    initialParams={{ token: token }}/> 
      <Drawer.Screen name='Proposer' component={Proposer}   initialParams={{ token: token }}/> 
      <Drawer.Screen name='AjoutMembres' component={AjoutMembres}   initialParams={{ token: token }}/> 
-     <Drawer.Screen name='MaladieMembre' component={MaladieMembre}   initialParams={{ token: token }}/> 
+     <Drawer.Screen name='MaladieMembre' component={MaladieMembre}   initialParams={{ token: token }}  options={{ title: 'Details du membre' }}/> 
      <Drawer.Screen name='AjoutMaladieM' component={AjoutMaladieM}   initialParams={{ token: token }}/> 
       </Drawer.Navigator>
     </NavigationContainer>
