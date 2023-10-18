@@ -9,54 +9,50 @@ import { Button, Card ,Checkbox, IconButton} from 'react-native-paper';
 import CardStyle from '../Style/CardStyle';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Bouton from '../home/Bouton';
-import Bouton2 from '../home/Bouton2';
-const Proposer = ({navigation,route}) => {
+import { useRoute } from '@react-navigation/native';
 
+const Proposer = ({navigation}) => {
+  const route = useRoute();  
+  const {token} = route.params;
   const [checkedIngredients, setCheckedIngredients] = React.useState({});
+  const [checkedType, setCheckedType] = React.useState({});
   const ref = useRef<BottomSheetRefProps>(null);
-  const [checked, setChecked] = React.useState(false);
-
+  const [selectype, setSelectype] = React.useState({});
+  const [selectIng, setSelectIng] = React.useState({});
+  const [type, setType] = React.useState([]);
   const [dat, setDat] = React.useState([]);
-  const token = route.params.token;
+//  const token = route.params.token;
 
   const handleCheckboxChange = (ingredientId) => {
+    console.log(ingredientId+" ingredientsIDD")
     setCheckedIngredients({
       ...checkedIngredients,
       [ingredientId]: !checkedIngredients[ingredientId], // Inverse l'état
     });
+    console.log(<checkedIngredients className="length"></checkedIngredients>+" lenght check")
+  };
+
+  
+  const handleCheckboxtype= (idtype) => {
+    console.log(idtype+" idtype")
+    setCheckedType({
+      ...checkedType,
+      [idtype]: !checkedType[idtype], // Inverse l'état
+    });
+    console.log(checkedType+" lenght check")
   };
 
   React.useEffect(() => {
     console.log("usee");
-    console.log("token '"+token+"'");
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Ingredient_Interdit',    
-    {
-      method:"GET",      
-      headers : {"Content-Type":"application/json",
-      "Authorization": `Bearer ${token}`,}
-      
-    //  body: JSON.stringify({"email":email,"motdepasse":password})
-    })
-      .then((response) => {return response.json()})
-      .then((resultat) => {
-        // Mettez à jour l'état avec les données obtenues
-        console.log(resultat);
-        setDat(resultat['data']);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la récupération des données:', error);
-      });
+    console.log("token '"+token+"'");   
+    console.log(selectype+" selectType")
+    console.log(selectIng+" selectIngredient")
+  }, [selectIng,selectype]);
 
-      if (dat.length > 0) {
-        const updatedData = dat.map((ingredient) => ({
-          ...ingredient,
-          checked: true,
-        }));
-        setData(updatedData);
-      }
-  }, []);
 
+  const typeplat =()=>{
+    
+  }
 
   const [dataCheck, setData] = React.useState([
     { id: 1, label: 'Élément 1'+' -  ', isChecked: false },
@@ -65,7 +61,7 @@ const Proposer = ({navigation,route}) => {
     // Ajoutez d'autres éléments à votre liste de données ici
   ]);
 
-  const toggleCheckbox = (id) => {
+  const toggleCheckbox = (id) => {""
     setData((prevData) =>
       prevData.map((item) =>
         item.id === id ? { ...item, isChecked: !item.isChecked } : item
@@ -98,26 +94,130 @@ const Proposer = ({navigation,route}) => {
       .then((resultat) => {
         // Mettez à jour l'état avec les données obtenues
         console.log(resultat);
-        setDat(resultat['data']);
+        console.log(resultat.data[0].id+" daatataaaaa")
+        setType(resultat.data);
+      //  console.log(type[0].val +"typeee")
       })
       .catch((error) => {
         console.error('Erreur lors de la récupération des données:', error);
       });
-
-      if (dat.length > 0) {
-        const updatedData = dat.map((ingredient) => ({
+      if (type.length > 0) {
+        const updatedData = type.map((ingredient) => ({
           ...ingredient,
           checked: true,
         }));
         setData(updatedData);
       }
- 
+      console.log(type.length+"   type")
 
   }, []);
+
+const validerType =()=>{
+  const select = Object.keys(checkedType).filter(
+    (id) => checkedType[id]
+  );
+  console.log(select+" avant")
+  setSelectype(select)
+  console.log(selectype+" selecteddd typeeee");
+ 
+  const isActive = ref?.current?.isActive();
+  if (isActive) {
+    ref?.current?.scrollTo(0);
+  } else {
+    ref?.current?.scrollTo(-200);
+  }
+
+}
+
+const validerIng =()=>{
+  console.log(selectIng.length)
+  const select = Object.keys(checkedIngredients).filter(
+    (id) => checkedIngredients[id]
+  );  
+  console.log(select);
+  setSelectIng(select)
+  console.log(selectIng+" selecteddddd");
+  if(selectIng.length =0){
+    console.log("null")
+  }
+  else{
+
+  }
+ // console.log(select+" selecteddd");
+  console.log(checkedIngredients+" avant")
+ // checkedIngredients.map(ing)=>{
+   // console.log(ing+' checkkk')
+  //});
+  setModalVisible(false);
+}
+
   const [modalVisible, setModalVisible] = React.useState(false);
+
+
+const validerProposition =()=>{
+  fetch('http://26.22.221.140:8087/tiatanindrazana/Proposer?ingredient='+selectIng+'&type='+selectype,    
+  {
+    method:"POST",      
+    headers : {"Content-Type":"application/json",
+    "Authorization": `Bearer ${token}`,}
+    
+  //  body: JSON.stringify({"email":email,"motdepasse":password})
+  })
+    .then((response) => {return response.json()})
+    .then((resultat) => {
+   //   console.log("coucououuu   "+resultat);
+     // setDat(resultat['data']);
+     /* if (dat.length > 0) {
+        const updatedData = dat.map((ingredient) => ({
+          checked: true,
+          ...ingredient,
+          
+        }));
+        setCheckedIngredients(updatedData);
+      }*/
+
+
+    })
+    .catch((error) => {
+      console.error('Erreur lors de la récupération des données:', error);
+    });
+    console.log(dat.length)
+}
+
+
 
   const showModal = () => {
     setModalVisible(true);
+    
+    fetch('http://26.22.221.140:8087/tiatanindrazana/Ingredient_Interdit',    
+    {
+      method:"GET",      
+      headers : {"Content-Type":"application/json",
+      "Authorization": `Bearer ${token}`,}
+      
+    //  body: JSON.stringify({"email":email,"motdepasse":password})
+    })
+      .then((response) => {return response.json()})
+      .then((resultat) => {
+        // Mettez à jour l'état avec les données obtenues
+        console.log("coucououuu   "+resultat);
+        setDat(resultat['data']);
+       /* if (dat.length > 0) {
+          const updatedData = dat.map((ingredient) => ({
+            checked: true,
+            ...ingredient,
+            
+          }));
+          setCheckedIngredients(updatedData);
+        }*/
+  
+
+      })
+      .catch((error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+      });
+      console.log(dat.length)
+      
   };
 
   const hideModal = () => {
@@ -161,7 +261,7 @@ const Proposer = ({navigation,route}) => {
         </Text></Button></TouchableOpacity>
         
 
-        <TouchableOpacity  onPress={onPress} ><Button style={CardStyle.btn}><Text style={{color: 'white', fontSize: 15 }}>Valider
+        <TouchableOpacity  onPress={validerProposition} ><Button style={CardStyle.btn}><Text style={{color: 'white', fontSize: 15 }}>Valider
         </Text></Button></TouchableOpacity>
         
 
@@ -173,24 +273,24 @@ const Proposer = ({navigation,route}) => {
       
         <BottomSheet ref={ref}>
         <View style={{ flex: 1, backgroundColor: 'white',padding:20 }}>
-            <View style={{}}>
-            <Text style={{ color: 'black', fontSize: 30, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}>A completer</Text>
-              <ScrollView>
-               {dat.map((ingredient) => (
-                <View key={ingredient.idingredientmaladie} style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
-                <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
-                 <Checkbox
-                status={checkedIngredients[ingredient.idingredientmaladie] ? 'checked' : 'unchecked'}
-               onPress={() => handleCheckboxChange(ingredient.idingredientmaladie)}
-    />
-    <TextInput style={CardStyle.input3} />
+            <ScrollView style={{}}>
 
+            <Text style={{ color: 'black', fontSize: 30, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}>A completer</Text>
+            {type.map((typee) => (
+        <View key={typee.id}>
+          <Text>{typee.VAL}</Text>
+          <Checkbox
+                status={checkedType[typee.id] ? 'checked' : 'unchecked'}
+               onPress={() => handleCheckboxtype(typee.id)}
+    />
         </View>
       ))}
-      <Text style={{ color: 'black', fontSize: 30, marginBottom: 130,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
-    </ScrollView>
-    <Text style={{ color: 'black', fontSize: 40, marginBottom: 60,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
-            </View>
+</ScrollView>
+    <Button onPress={validerType} style={{}}>Valider</Button><Button onPress={onPress}>Annuler</Button>          
+    <Text style={{ color: 'black', fontSize: 40, marginBottom: 100,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
+    
+            
+            
           </View>
         </BottomSheet>
       </View>
@@ -221,19 +321,22 @@ const Proposer = ({navigation,route}) => {
         <Icon name='search' size={20} color="white" />    </Button>
     </View>
     <ScrollView>
-    {dat.map((ingredient) => (
-        <View key={ingredient.idingredientmaladie}>
-          <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
-          <Checkbox
-      status={'checked'}
-      onPress={() => handleCheckboxChange(ingredient.idingredientmaladie)}
+               {dat.map((ingredient) => (
+                <View key={ingredient.idingredient} style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
+                <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
+                 <Checkbox
+                status={checkedIngredients[ingredient.idingredient] ? 'unchecked' : 'checked'}
+               onPress={() => handleCheckboxChange(ingredient.idingredient)}
     />
+    <TextInput style={CardStyle.input3} />
+
         </View>
       ))}
+      <Text style={{ color: 'black', fontSize: 30, marginBottom: 60,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
     </ScrollView>
     <View style={{flexDirection: 'row', marginTop:20}}>
         
-    <Button onPress={hideModal} style={{}}>Valider</Button><Button onPress={hideModal}>Annuler</Button>
+    <Button onPress={validerIng} style={{}}>Valider</Button><Button onPress={hideModal}>Annuler</Button>
 
         </View>
         </View>

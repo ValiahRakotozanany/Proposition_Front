@@ -1,13 +1,11 @@
 import { View, Text,Animated  } from 'react-native'
 import React,{useEffect} from 'react'
 import StyleFeed from '../tabs/style'
-import { FakeData } from '../../data/FakeData'
-import { FlatList, ScrollView, TextInput, TouchableOpacity } from 'react-native-gesture-handler'
+
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Button } from 'react-native-paper'
 import CardStyle from '../Style/CardStyle'
 import LinearGradient from 'react-native-linear-gradient';
-import Bouton from './Bouton'
-import Proposer from '../Membres/Proposer'
 import Modal from 'react-native-modal';
 import {Dropdown} from 'react-native-element-dropdown';
 const MaladieMembre = ({navigation,route}) => {
@@ -89,31 +87,7 @@ console.log(select+"  SLEEECCTTT");
       });
       setModalVisible(false);
   }
-/*
 
-  useEffect(() => {
-    console.log("membre"+item.id);
-    console.log("token '"+token+"'");
-    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+item.id,    
-    {
-      method:"GET",      
-      headers : {"Content-Type":"application/json",
-      "Authorization": `Bearer ${token}`,}
-      
-    //  body: JSON.stringify({"email":email,"motdepasse":password})
-    })
-      .then((response) => {return response.json()})
-      .then((resultat) => {
-        // Mettez à jour l'état avec les données obtenues
-        console.log(resultat);
-        setData(resultat['data']);
-      })
-      .catch((error) => {
-        console.error('Erreur lors de la récupération des données:', error);
-      });
-  }, []);
-
-*/
 
   const panelHeight = animation.interpolate({
     inputRange: [0, 1],
@@ -186,7 +160,7 @@ console.log(select+"  SLEEECCTTT");
           valueField="value"
           placeholder={!isFocus ? 'Select Maladie' : '...'}
           searchPlaceholder="Search..."
-          value={country}
+          value={country} 
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={item => {

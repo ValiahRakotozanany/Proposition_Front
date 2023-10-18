@@ -111,7 +111,7 @@ const Accueil = ({navigation,route}) => {
       {/* <Button style={CardStyle.btn2} onPress={() => navigation.navigate('Proposer',data )} ><Text style={{letterSpacing: 1,
         color: 'white',fontFamily :'poppins-bold',fontWeight:'bold', alignItems: 'center',
 }}>Proposer + </Text></Button>  */}
-<Bouton title='Proposition' titre='Membres de la Famille' onPress={() => navigation.navigate('Proposer')} />
+<Bouton title='Proposition' titre='Membres de la Famille' onPress={() => navigation.navigate('Proposer',{token:token})} />
 <View><TouchableOpacity style={StyleFeed.rond}><Text style={{fontSize:28 ,fontWeight:'bold'}} 
  onPress={() => navigation.navigate('AjoutMembres',{token: token})}>  +</Text></TouchableOpacity></View>
       <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
