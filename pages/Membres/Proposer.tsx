@@ -10,7 +10,7 @@ import CardStyle from '../Style/CardStyle';
 import Modal from 'react-native-modal';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRoute } from '@react-navigation/native';
-
+import {Dropdown} from 'react-native-element-dropdown';
 const Proposer = ({navigation}) => {
   const route = useRoute();  
   const {token} = route.params;
@@ -21,7 +21,9 @@ const Proposer = ({navigation}) => {
   const [selectIng, setSelectIng] = React.useState({});
   const [type, setType] = React.useState([]);
   const [dat, setDat] = React.useState([]);
-//  const token = route.params.token;
+
+  const [country, setCountry] = React.useState(null);
+  const [isFocus, setIsFocus] = React.useState(false);
 
   const handleCheckboxChange = (ingredientId) => {
     console.log(ingredientId+" ingredientsIDD")
@@ -82,7 +84,7 @@ const Proposer = ({navigation}) => {
       ref?.current?.scrollTo(-200);
     }
 
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Typeplat',    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/Typeplat',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -155,7 +157,12 @@ const validerIng =()=>{
 
 
 const validerProposition =()=>{
-  fetch('http://26.22.221.140:8087/tiatanindrazana/Proposer?ingredient='+selectIng+'&type='+selectype,    
+  console.log(Object.keys(selectype).length)
+  if(Object.keys(selectype).length===0){
+    console.log('tsy maintsy misy type ');
+    
+  }else{
+  fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient='+selectIng+'&type='+selectype,    
   {
     method:"POST",      
     headers : {"Content-Type":"application/json",
@@ -182,6 +189,7 @@ const validerProposition =()=>{
       console.error('Erreur lors de la récupération des données:', error);
     });
     console.log(dat.length)
+  }
 }
 
 
@@ -189,7 +197,7 @@ const validerProposition =()=>{
   const showModal = () => {
     setModalVisible(true);
     
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Ingredient_Interdit',    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/Ingredient_Interdit',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -223,7 +231,10 @@ const validerProposition =()=>{
   const hideModal = () => {
     setModalVisible(false);
   };
-  const data = ['Option 1', 'Option 2', 'Option 3'];
+  const data = [
+    { label: 'Journalier', value: '1' },
+    { label: 'Hebdomadaire', value: '2' },
+  ];
   return (
     <GestureHandlerRootView style={{ flex: 1 ,backgroundColor: 'white'}} > 
          <View style={{ position: "absolute"}}>        
@@ -244,20 +255,33 @@ const validerProposition =()=>{
        <TextInput style={CardStyle.input} 
       placeholder="Budget Max"
     />
-
-<ModalDropdown 
-          options={data}
-          onSelect={handleSelect}
-          defaultValue="Select an option" style={CardStyle.input}
-         
-        //  onSelect={(index, value) => this.setState({ selectedOption: value })}
+           <Dropdown
+          style={[CardStyle.dropdown, isFocus && {borderColor: 'blue'}]}
+          placeholderStyle={CardStyle.placeholderStyle}
+          selectedTextStyle={CardStyle.selectedTextStyle}
+          inputSearchStyle={CardStyle.inputSearchStyle}
+          iconStyle={CardStyle.iconStyle}
+          data={data}
+          search
+          maxHeight={300}
+          labelField="label"
+          valueField="value"
+          placeholder={!isFocus ? 'Option' : '...'}
+          searchPlaceholder="Search..."
+          value={country} 
+          onFocus={() => setIsFocus(true)}
+          onBlur={() => setIsFocus(false)}
+          onChange={item => {
+            setCountry(item.value);
+            setIsFocus(false);
+          }}
         />
 
-<TouchableOpacity  onPress={showModal} style={CardStyle.input}><Button><Text style={{color: 'grey', fontSize: 15 }}>Critères ...
+<TouchableOpacity  onPress={showModal} style={CardStyle.input}><Button><Text style={{color: 'grey', fontSize: 15 }}>Ingredients ...
          </Text></Button></TouchableOpacity>        
         
 
-<TouchableOpacity  onPress={onPress} style={CardStyle.input} ><Button><Text style={{color: 'grey', fontSize: 15 }}> Choix plat <MaterialCommunityIcons name="transfer-down" size={18} />
+<TouchableOpacity  onPress={onPress} style={CardStyle.input} ><Button><Text style={{color: 'grey', fontSize: 15 }}> Type plat <MaterialCommunityIcons name="transfer-down" size={18} />
         </Text></Button></TouchableOpacity>
         
 

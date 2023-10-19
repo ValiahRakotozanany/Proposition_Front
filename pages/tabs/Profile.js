@@ -9,7 +9,7 @@ const Profile =  ({  navigation ,route})  => {
   React.useEffect(() => {
     console.log("usee");
     console.log("token '"+token+"'");
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Ingredient_Interdit',    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/Ingredient_Interdit',    
     {
       method:"GET",
       headers : {"Content-Type":"application/json",

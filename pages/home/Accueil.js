@@ -2,8 +2,8 @@ import { View, Text,Animated  } from 'react-native'
 import React from 'react'
 import StyleFeed from '../tabs/style'
 import { FakeData } from '../../data/FakeData'
-import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
-import { Button } from 'react-native-paper'
+import { FlatList, ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { Button, Card } from 'react-native-paper'
 import CardStyle from '../Style/CardStyle'
 import LinearGradient from 'react-native-linear-gradient';
 import Bouton from './Bouton'
@@ -29,7 +29,7 @@ const Accueil = ({navigation,route}) => {
     setIsCollapsed(!isCollapsed);
 
 
-    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+idmembre,    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/MaladieMembre?idmembre='+idmembre,    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -60,7 +60,7 @@ const Accueil = ({navigation,route}) => {
   React.useEffect(() => {
     console.log("usee");
     console.log("token '"+token+"'");
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Membre_Famille',    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/Membre_Famille',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -80,7 +80,7 @@ const Accueil = ({navigation,route}) => {
   }, []);
 
   const navigateToMaladiesMembre = (item,token) => {
-    fetch('http://26.22.221.140:8087/tiatanindrazana/MaladieMembre?idmembre='+item.id,    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/MaladieMembre?idmembre='+item.id,    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -100,7 +100,6 @@ const Accueil = ({navigation,route}) => {
         console.error('Erreur lors de la récupération des données:', error);
       });
       console.log(dataMembre+" avant la navigation ");
-  //  navigation.navigate("MaladieMembre", { item,token, dataMembre});
   };
 
     const handlePress = () => {
@@ -108,27 +107,26 @@ const Accueil = ({navigation,route}) => {
       };
   return (
     <View >
-      {/* <Button style={CardStyle.btn2} onPress={() => navigation.navigate('Proposer',data )} ><Text style={{letterSpacing: 1,
-        color: 'white',fontFamily :'poppins-bold',fontWeight:'bold', alignItems: 'center',
-}}>Proposer + </Text></Button>  */}
 <Bouton title='Proposition' titre='Membres de la Famille' onPress={() => navigation.navigate('Proposer',{token:token})} />
 <View><TouchableOpacity style={StyleFeed.rond}><Text style={{fontSize:28 ,fontWeight:'bold'}} 
  onPress={() => navigation.navigate('AjoutMembres',{token: token})}>  +</Text></TouchableOpacity></View>
-      <FlatList vertical={true} style={StyleFeed.scrollableList} showsHorizontalScrollIndicator={false} keyExtractor={item =>item.id} renderItem={({item}) =>{ 
-        return (<View style={StyleFeed.scrollableListitem}>
-          <View>
-          <Button title="Détails" style={{justifyContent:'flex-start',alignItems:'flex-start'}} onPress={() => navigateToMaladiesMembre(item,token)}>
-            <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}>{item.prenom}<Text style={{color:'grey'}}>   {item.nom}</Text>
-           
-           </Text></Button>
-          <View>              
-           <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>✖️    🖊️</Text></TouchableOpacity>
-           </View>
-         </View>          
-   </View>
+ <ScrollView style={{}}>
+        {data.map((item,index) => (<View style={StyleFeed.scrollableListitem}>
+            <View key={index} >
+            <Button title="Détails" style={{justifyContent:'flex-start',alignItems:'flex-start'}} onPress={() => navigateToMaladiesMembre(item,token)}>
+              <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}>{item.prenom}<Text style={{color:'grey'}}>   {item.nom}</Text>
             
-            )}}
-     data={data}/>
+            </Text></Button>
+            <View>              
+            <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>✖️    🖊️</Text></TouchableOpacity>
+            </View>
+          </View>          
+    </View>
+              
+              
+              ))} 
+              <Text style={{ color: 'white', fontSize: 80, marginBottom: 40,fontWeight:'bold', letterSpacing: 5 }}><Text style={{color:'black'}}> </Text></Text>
+              </ScrollView>
     </View>
   )
 }

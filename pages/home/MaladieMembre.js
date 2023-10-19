@@ -30,7 +30,7 @@ console.log(select+"  SLEEECCTTT");
   const [maladie, setMaladie] = React.useState([]);
   const showModal = () => {
     setModalVisible(true);
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Maladie',    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/Maladie',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json", 
@@ -65,7 +65,7 @@ console.log(select+"  SLEEECCTTT");
     setModalVisible(false);
   };
   const ajouter=()=>{
-    fetch('http://26.22.221.140:8087/tiatanindrazana/Maladie?idmembre='+item.id+'&idmaladie='+country,    
+    fetch('http://26.22.221.140:8001/tiatanindrazana/Maladie?idmembre='+item.id+'&idmaladie='+country,    
     {
       method:"POST",      
       headers : {"Content-Type":"application/json",

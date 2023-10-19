@@ -107,12 +107,14 @@ const CardStyle = StyleSheet.create({
         marginVertical: 10,
         backgroundColor : '#e3e3e3',
         color: 'black',
-        fontFamily :'poppins-bold'    },     
+        fontFamily :'poppins-bold'    
+      },     
         dropdown: {
-          height: 50,
-          borderColor: 'gray',
+          height: 42,
+          marginTop: 10,
+          borderColor: 'grey',
           borderWidth: 0.5,
-          borderRadius: 8,
+          borderRadius: 50,
           paddingHorizontal: 8,
           marginBottom: 10,
         },
