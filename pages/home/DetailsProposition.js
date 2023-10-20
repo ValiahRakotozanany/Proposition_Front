@@ -7,7 +7,7 @@ import { Button } from 'react-native-paper'
 import CardStyle from '../Style/CardStyle'
 import LinearGradient from 'react-native-linear-gradient';
 
-const Proposer = () => {
+const DetailsProposition = () => {
 
     const handlePress = () => {
         console.log('Bouton cliqué !');
@@ -38,4 +38,4 @@ const Proposer = () => {
   )
 }
 
-export default Proposer
+export default DetailsProposition

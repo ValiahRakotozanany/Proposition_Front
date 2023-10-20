@@ -25,7 +25,7 @@ console.log(token +" membre token")
     setModalVisible(true);
   };
 
-  const navigatToDetails = () => {
+  const navigatToDetails = (item,token) => {
     
   };
 
@@ -40,11 +40,10 @@ console.log(token +" membre token")
 <Bouton title='Ajout Membre' onPress={() => navigation.navigate('AjoutMembres',{token: token})} />
 <ScrollView style={{}}>
         {proposition && proposition.listedata.map((item,index) => (<View style={StyleFeed.scrollableListitem}>
-            <View key={index} >
-                <Button title="Détails" style={{justifyContent:'flex-start',alignItems:'flex-start',flexDirection: 'row'}} onPress={() => navigatToDetails(item,token)}>
-              {item.map((propp)=>(
-                <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}><Text style={{color:'grey'}}>   {propp.nomplats} - </Text>  </Text>      
-               
+            <View key={index} >              
+                <Button title="Détails" style={{justifyContent:'flex-start',alignItems:'flex-start'}} onPress={() => navigatToDetails(item,token)}>
+              {item.map((propp,ind)=>(
+                <Text key={ind} tyle={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}><Text style={{color:'grey'}}>   {propp.nomplats} - Prix:  {propp.prixEnfant} - nbr: {propp.nbr} → {propp.totalprix}</Text>  </Text>                     
                 ))}
              </Button>
               <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}>{}<Text style={{color:'grey'}}>   {}</Text>            

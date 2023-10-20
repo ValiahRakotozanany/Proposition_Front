@@ -34,8 +34,11 @@ var Proposer = function (_a) {
     var _e = react_1["default"].useState({}), selectIng = _e[0], setSelectIng = _e[1];
     var _f = react_1["default"].useState([]), type = _f[0], setType = _f[1];
     var _g = react_1["default"].useState([]), dat = _g[0], setDat = _g[1];
-    var _h = react_1["default"].useState(null), country = _h[0], setCountry = _h[1];
-    var _j = react_1["default"].useState(false), isFocus = _j[0], setIsFocus = _j[1];
+    var _h = react_1["default"].useState(''), buMin = _h[0], setBuMin = _h[1];
+    var _j = react_1["default"].useState(''), buMax = _j[0], setBuMax = _j[1];
+    var _k = react_1["default"].useState(''), nbr = _k[0], setNbr = _k[1];
+    var _l = react_1["default"].useState(null), country = _l[0], setCountry = _l[1];
+    var _m = react_1["default"].useState(false), isFocus = _m[0], setIsFocus = _m[1];
     var handleCheckboxChange = function (ingredientId) {
         var _a;
         console.log(ingredientId + " ingredientsIDD");
@@ -56,11 +59,11 @@ var Proposer = function (_a) {
     }, [selectIng, selectype]);
     var typeplat = function () {
     };
-    var _k = react_1["default"].useState([
+    var _o = react_1["default"].useState([
         { id: 1, label: 'Élément 1' + ' -  ', isChecked: false },
         { id: 2, label: 'Élément 2', isChecked: false },
         { id: 3, label: 'Élément 3', isChecked: false },
-    ]), dataCheck = _k[0], setData = _k[1];
+    ]), dataCheck = _o[0], setData = _o[1];
     var toggleCheckbox = function (id) {
         "";
         setData(function (prevData) {
@@ -69,7 +72,7 @@ var Proposer = function (_a) {
             });
         });
     };
-    var _l = react_1["default"].useState(null), selectedOption = _l[0], setSelectedOption = _l[1];
+    var _p = react_1["default"].useState(null), selectedOption = _p[0], setSelectedOption = _p[1];
     var handleSelect = function (index, value) {
         setSelectedOption(value);
     };
@@ -135,14 +138,23 @@ var Proposer = function (_a) {
         //});
         setModalVisible(false);
     };
-    var _m = react_1["default"].useState(false), modalVisible = _m[0], setModalVisible = _m[1];
+    var _q = react_1["default"].useState(false), modalVisible = _q[0], setModalVisible = _q[1];
     var validerProposition = function () {
         console.log(Object.keys(selectype).length);
         if (Object.keys(selectype).length === 0) {
             console.log('tsy maintsy misy type ');
         }
         else {
-            fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient=' + selectIng + '&type=' + selectype, {
+            if (!buMax) {
+                setBuMax('0');
+            }
+            if (!buMin) {
+                setBuMin('0');
+            }
+            if (!nbr) {
+                setNbr('1');
+            }
+            fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient=' + selectIng + '&type=' + selectype + '&budgetMin=' + buMin + '&budgetMax=' + buMax + '&nbrPers=' + nbr, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token }
                 //  body: JSON.stringify({"email":email,"motdepasse":password})
@@ -208,8 +220,8 @@ var Proposer = function (_a) {
             react_1["default"].createElement(react_native_paper_1.Card, { style: CardStyle_1["default"].card },
                 react_1["default"].createElement(react_native_paper_1.Card.Content, null,
                     react_1["default"].createElement(react_native_2.Text, { style: { color: 'black', fontSize: 30, marginBottom: 20, fontWeight: 'bold', letterSpacing: 2, justifyContent: 'center', textAlign: 'center' } }, "A completer"),
-                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, placeholder: "Budget Min" }),
-                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, placeholder: "Budget Max" }),
+                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, onChangeText: function (text) { return setBuMin(text); }, placeholder: "Budget Min" }),
+                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, onChangeText: function (text) { return setBuMax(text); }, placeholder: "Budget Max" }),
                     react_1["default"].createElement(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end' } },
                         react_1["default"].createElement(react_native_2.Text, null,
                             " ",
@@ -217,7 +229,7 @@ var Proposer = function (_a) {
                                     setCountry(item.value);
                                     setIsFocus(false);
                                 } })),
-                        react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { placeholder: "Nbr Pers", style: CardStyle_1["default"].input3 })),
+                        react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { placeholder: "Nbr Pers", style: CardStyle_1["default"].input3, onChangeText: function (text) { return setNbr(text); } })),
                     react_1["default"].createElement(react_native_1.TouchableOpacity, { onPress: showModal, style: CardStyle_1["default"].input },
                         react_1["default"].createElement(react_native_paper_1.Button, null,
                             react_1["default"].createElement(react_native_2.Text, { style: { color: 'grey', fontSize: 15 } }, "Ingredients ..."))),

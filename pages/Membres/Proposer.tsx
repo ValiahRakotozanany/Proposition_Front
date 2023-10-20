@@ -21,7 +21,9 @@ const Proposer = ({navigation}) => {
   const [selectIng, setSelectIng] = React.useState({});
   const [type, setType] = React.useState([]);
   const [dat, setDat] = React.useState([]);
-
+  const [buMin, setBuMin] = React.useState('');
+  const [buMax, setBuMax] = React.useState('');
+  const [nbr, setNbr] = React.useState('');
   const [country, setCountry] = React.useState(null);
   const [isFocus, setIsFocus] = React.useState(false);
 
@@ -162,7 +164,17 @@ const validerProposition =()=>{
     console.log('tsy maintsy misy type ');
     
   }else{
-  fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient='+selectIng+'&type='+selectype,    
+
+    if(!buMax){
+      setBuMax('0');
+    }    
+    if(!buMin){
+      setBuMin('0');
+    }    
+    if(!nbr){
+      setNbr('1');
+    }
+  fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient='+selectIng+'&type='+selectype+'&budgetMin='+buMin+'&budgetMax='+buMax+'&nbrPers='+nbr,    
   {
     method:"POST",      
     headers : {"Content-Type":"application/json",
@@ -254,9 +266,12 @@ const validerProposition =()=>{
        <Card.Content>   
        <Text style={{ color: 'black', fontSize: 30, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}>A completer</Text>
        <TextInput style={CardStyle.input} 
+          onChangeText={text => setBuMin(text)}
+      
       placeholder="Budget Min"
     />       
        <TextInput style={CardStyle.input} 
+          onChangeText={text => setBuMax(text)}      
       placeholder="Budget Max"
     /><View style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
           <Text> <Dropdown
@@ -281,7 +296,8 @@ const validerProposition =()=>{
           }}
         /></Text>
 
-<TextInput placeholder="Nbr Pers"style={CardStyle.input3} />
+<TextInput placeholder="Nbr Pers"style={CardStyle.input3}  onChangeText={text => setNbr(text)}
+       />
 
 </View>
 <TouchableOpacity  onPress={showModal} style={CardStyle.input}><Button><Text style={{color: 'grey', fontSize: 15 }}>Ingredients ...
