@@ -7,9 +7,9 @@ import Inscription from '../pages/Membres/Inscription';
 import Proposer from '../pages/Membres/Proposer';
 import Feed from '../pages/tabs/Feed';
 import AjoutMembres from '../pages/Membres/AjoutMembre';
-import Membres from '../pages/Membres/Membres';
 import MaladieMembre from '../pages/home/MaladieMembre';
 import AjoutMaladieM from '../pages/Membres/AjoutMaladieM';
+import Proposition from '../pages/home/Proposition';
 
 
 export default function Routes() {
@@ -23,8 +23,9 @@ export default function Routes() {
         <Stack.Screen name="Inscription" component={Inscription} />
         <Stack.Screen name="AjoutMembres" component={AjoutMembres} />
         <Stack.Screen name="Proposer" component={Proposer} />
-        <Stack.Screen name="Membre" component={Membres} />        
+        <Stack.Screen name="Proposition" component={Proposition} />        
         <Stack.Screen name="AjoutMaladieM" component={AjoutMaladieM} />   
+
       </Stack.Navigator>         
       </NavigationContainer>
     );

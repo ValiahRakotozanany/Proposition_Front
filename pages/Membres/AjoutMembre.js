@@ -63,7 +63,7 @@ const d = datefin.getDate()+'-'+datefin.getMonth(0)+'-'+datefin.getFullYear();
     <View style={{ position: "absolute" }}>    
       <View style={CardStyle.container}>
     <Text style={{ color: 'white', fontSize: 64 ,fontWeight : 'bold'}}></Text>
-    <Text style={{ color: 'white', fontSize:25 , marginBottom: 40,fontWeight:'bold', letterSpacing: 4 }}>Ajout Membres<Text style={{color:'black'}}></Text></Text>    
+    <Text style={{ color: 'white', fontSize:25 , marginBottom: 40,fontWeight:'bold', letterSpacing: 4 }}>Ajout Membre<Text style={{color:'black'}}></Text></Text>    
                           
     </View>
        <Card style={CardStyle.card}>
@@ -74,7 +74,7 @@ const d = datefin.getDate()+'-'+datefin.getMonth(0)+'-'+datefin.getFullYear();
       value={nom}
     />             
        <TextInput style={CardStyle.input}
-         secureTextEntry={true}
+      
        placeholder={"Prenom"}
        onChangeText={text => setPrenom(text)}
        value={prenom}

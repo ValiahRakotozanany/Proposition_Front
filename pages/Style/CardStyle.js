@@ -61,7 +61,7 @@ const CardStyle = StyleSheet.create({
       borderRadius : 100     ,
       backgroundColor : 'white',
       paddingHorizontal: 10,
-      marginVertical: 10
+    //  marginVertical: 10
   },
     input: {
         marginTop: 10,

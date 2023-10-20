@@ -118,7 +118,7 @@ const Accueil = ({navigation,route}) => {
             
             </Text></Button>
             <View>              
-            <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>✖️    🖊️</Text></TouchableOpacity>
+            <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>🪣    🖊️</Text></TouchableOpacity>
             </View>
           </View>          
     </View>

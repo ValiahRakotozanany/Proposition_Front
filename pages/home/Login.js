@@ -72,7 +72,7 @@ const submit = () =>{
       <View style={CardStyle.container}>
     <Text style={{ color: 'white', fontSize: 64 ,fontWeight : 'bold'}}></Text>
 
-    <Text style={{ color: 'white', fontSize: 20 ,fontWeight : 'bold'}}></Text>
+    <Text style={{ color: 'white', fontSize: 10 ,fontWeight : 'bold'}}></Text>
       <Text style={{ color: 'white', fontSize: 30, marginBottom: 40,fontWeight:'bold', letterSpacing: 5 }}>Tonga<Text style={{color:'black'}}>Soa</Text></Text>
      
       {/* <IconButton icon={'account'} iconColor={'red'} /> */}                

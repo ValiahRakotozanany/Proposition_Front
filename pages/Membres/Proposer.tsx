@@ -172,6 +172,10 @@ const validerProposition =()=>{
   })
     .then((response) => {return response.json()})
     .then((resultat) => {
+   //  console.log(resultat.data);
+      console.log(resultat+" ity");
+     navigation.navigate("Proposition", { token, proposition: resultat });
+
    //   console.log("coucououuu   "+resultat);
      // setDat(resultat['data']);
      /* if (dat.length > 0) {
@@ -232,8 +236,8 @@ const validerProposition =()=>{
     setModalVisible(false);
   };
   const data = [
-    { label: 'Journalier', value: '1' },
-    { label: 'Hebdomadaire', value: '2' },
+    { label: 'Jour', value: '1' },
+    { label: 'Semaine', value: '2' },
   ];
   return (
     <GestureHandlerRootView style={{ flex: 1 ,backgroundColor: 'white'}} > 
@@ -244,7 +248,7 @@ const validerProposition =()=>{
      height: 280, borderRadius:150}} resizeMode="cover" borderRadius={12}  
     />
       {/* <IconButton icon={'account'} iconColor={'red'} /> */}
-      <Text style={{ color: 'black', fontSize: 100, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
+      <Text style={{ color: 'black', fontSize: 100, marginBottom: 10,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
 
        <Card style={CardStyle.card} >        
        <Card.Content>   
@@ -254,9 +258,9 @@ const validerProposition =()=>{
     />       
        <TextInput style={CardStyle.input} 
       placeholder="Budget Max"
-    />
-           <Dropdown
-          style={[CardStyle.dropdown, isFocus && {borderColor: 'blue'}]}
+    /><View style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
+          <Text> <Dropdown
+          style={[CardStyle.input3, isFocus && {borderColor: 'blue'}]}
           placeholderStyle={CardStyle.placeholderStyle}
           selectedTextStyle={CardStyle.selectedTextStyle}
           inputSearchStyle={CardStyle.inputSearchStyle}
@@ -275,8 +279,11 @@ const validerProposition =()=>{
             setCountry(item.value);
             setIsFocus(false);
           }}
-        />
+        /></Text>
 
+<TextInput placeholder="Nbr Pers"style={CardStyle.input3} />
+
+</View>
 <TouchableOpacity  onPress={showModal} style={CardStyle.input}><Button><Text style={{color: 'grey', fontSize: 15 }}>Ingredients ...
          </Text></Button></TouchableOpacity>        
         
@@ -299,14 +306,14 @@ const validerProposition =()=>{
         <View style={{ flex: 1, backgroundColor: 'white',padding:20 }}>
             <ScrollView style={{}}>
 
-            <Text style={{ color: 'black', fontSize: 30, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}>A completer</Text>
+            <Text style={{ color: 'black', fontSize: 30, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}>Types à choisir</Text>
             {type.map((typee) => (
-        <View key={typee.id}>
-          <Text>{typee.VAL}</Text>
-          <Checkbox
+        <View key={typee.id} style={{flexDirection: 'row'}}>
+         
+         <Text> <Checkbox
                 status={checkedType[typee.id] ? 'checked' : 'unchecked'}
                onPress={() => handleCheckboxtype(typee.id)}
-    />
+    /> </Text><Text>{typee.VAL}</Text>
         </View>
       ))}
 </ScrollView>
@@ -314,7 +321,7 @@ const validerProposition =()=>{
     <Text style={{ color: 'black', fontSize: 40, marginBottom: 100,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}></Text>
     
             
-            
+              
           </View>
         </BottomSheet>
       </View>
@@ -340,13 +347,13 @@ const validerProposition =()=>{
         <Text style={{ color: 'black',alignItems: 'center', fontSize: 5 , marginTop:5}}></Text>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <TextInput style={CardStyle.input2}       
-      placeholder="Recherche Critère"
+      placeholder="Recherche ingrédient"
     ></TextInput><Button  style={{width:20,paddingHorizontal: 10,backgroundColor :'gray' }}> 
         <Icon name='search' size={20} color="white" />    </Button>
     </View>
     <ScrollView>
-               {dat.map((ingredient) => (
-                <View key={ingredient.idingredient} style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
+               {dat.map((ingredient,index) => (
+                <View key={index} style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
                 <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
                  <Checkbox
                 status={checkedIngredients[ingredient.idingredient] ? 'unchecked' : 'checked'}
