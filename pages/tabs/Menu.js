@@ -11,6 +11,7 @@ import AjoutMembres from '../Membres/AjoutMembre';
 import MaladieMembre from '../home/MaladieMembre';
 import AjoutMaladieM from '../Membres/AjoutMaladieM';
 import Proposition from '../home/Proposition';
+import DetailsProposition from '../home/DetailsProposition';
 
 const Drawer = createDrawerNavigator();
 const Menuu = (props) => {
@@ -23,10 +24,10 @@ const Menuu = (props) => {
      <Drawer.Screen name='Proposer' component={Proposer}   initialParams={{ token: token }}/> 
      <Drawer.Screen name='AjoutMembres' component={AjoutMembres}   initialParams={{ token: token }} options={{ title: 'Ajouter un membre' }}/> 
      <Drawer.Screen name='MaladieMembre' component={MaladieMembre}   initialParams={{ token: token }}  options={{ title: 'Details du membre' }}/> 
-     <Drawer.Screen name='Deconnexion' component={Membres}  initialParams={{ token: token }}/>        
+     <Drawer.Screen name='Deconnexion' component={Membres}  initialParams={{ token: token }}/>            
+     <Drawer.Screen name='Proposition' component={Proposition}   initialParams={{ token: token }} options={{title:' Dernières Propositions'}}/> 
+     <Drawer.Screen name='DetailsProposition' component={DetailsProposition}   initialParams={{ token: token }} options={{title:' '}}/> 
      <Drawer.Screen name='AjoutMaladieM' component={AjoutMaladieM}   initialParams={{ token: token }} options={{title:' '}}/> 
-     <Drawer.Screen name='Proposition' component={Proposition}   initialParams={{ token: token }} options={{title:' '}}/> 
-     
       </Drawer.Navigator>
     </NavigationContainer>
   );

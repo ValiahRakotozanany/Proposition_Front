@@ -93,7 +93,23 @@ const CardStyle = StyleSheet.create({
         color: 'black',
         fontFamily :'poppins-bold'
 
-    },btn2 : {    
+    },btn3 : {
+      marginTop: 10,
+      marginBottom: 10,
+      width: 120,
+      height: 40,
+      alignItems : 'center',
+    //  position: 'center',
+      borderWidth: 1, // Épaisseur de la bordure
+      borderColor: 'grey', 
+      borderRadius : 100     ,
+      paddingHorizontal: 10,
+      marginVertical: 10,
+      backgroundColor : 'black',
+      color: 'black',
+      fontFamily :'poppins-bold'
+
+  },btn2 : {    
         marginTop: 10,
         marginBottom: 10,
         width: 120,

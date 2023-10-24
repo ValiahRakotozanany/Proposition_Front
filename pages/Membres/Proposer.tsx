@@ -174,6 +174,10 @@ const validerProposition =()=>{
     if(!nbr){
       setNbr('1');
     }
+
+    if(!country){
+      setCountry('1');
+    }
   fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient='+selectIng+'&type='+selectype+'&budgetMin='+buMin+'&budgetMax='+buMax+'&nbrPers='+nbr,    
   {
     method:"POST",      

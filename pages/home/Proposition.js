@@ -25,7 +25,7 @@ console.log(token +" membre token")
     setModalVisible(true);
   };
 
-  const navigatToDetails = (item,token) => {
+  const navigatToDetails = (item,to) => {
     
   };
 
@@ -37,19 +37,19 @@ console.log(token +" membre token")
         setChecked(!checked);
       }}
     /> */}
-<Bouton title='Ajout Membre' onPress={() => navigation.navigate('AjoutMembres',{token: token})} />
+<Bouton title='retour' titre='Planning' onPress={() => navigation.navigate('AjoutMembres',{token: token})} />
 <ScrollView style={{}}>
         {proposition && proposition.listedata.map((item,index) => (<View style={StyleFeed.scrollableListitem}>
-            <View key={index} >              
-                <Button title="Détails" style={{justifyContent:'flex-start',alignItems:'flex-start'}} onPress={() => navigatToDetails(item,token)}>
+            <View key={index} >  
+            <Text>Jour {index+1  }</Text>            
+                <Button title="Détails" style={{justifyContent:'flex-start',alignItems:'flex-start'}} onPress={() =>navigation.navigate("DetailsProposition", { token, details: item })}>
               {item.map((propp,ind)=>(
-                <Text key={ind} tyle={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}><Text style={{color:'grey'}}>   {propp.nomplats} - Prix:  {propp.prixEnfant} - nbr: {propp.nbr} → {propp.totalprix}</Text>  </Text>                     
+                <Text key={ind} tyle={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}><Text style={{color:'grey'}}>{propp.nomplats} -</Text>  </Text>                     
                 ))}
              </Button>
-              <Text style={{ color: 'black', fontSize:15 ,fontWeight:'bold',  letterSpacing: 2 }}>{}<Text style={{color:'grey'}}>   {}</Text>            
-            </Text>
+           
             <View>              
-            <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>  🖊️</Text></TouchableOpacity>
+            <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text> </Text></TouchableOpacity>
             </View>
           </View>          
     </View>
