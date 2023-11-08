@@ -35,7 +35,7 @@ const AjoutMembres = () => {
     console.log(datefin.getFullYear()+'-'+datefin.getMonth(0)+'-'+datefin.getDate());
 const d = datefin.getDate()+'-'+datefin.getMonth(0)+'-'+datefin.getFullYear();
 
-   fetch('http://26.22.221.140:8001/tiatanindrazana/Membre_Famille?nom='+nom+'&prenom='+prenom+'&datenaissance='+d,    
+   fetch('http://26.22.221.140:8001/proposition/Membre_Famille?nom='+nom+'&prenom='+prenom+'&datenaissance='+d,    
     {
       method:"POST",      
       headers : {"Content-Type":"application/json",

@@ -30,7 +30,7 @@ console.log(select+"  SLEEECCTTT");
   const [maladie, setMaladie] = React.useState([]);
   const showModal = () => {
     setModalVisible(true);
-    fetch('http://26.22.221.140:8001/tiatanindrazana/Maladie',    
+    fetch('http://26.22.221.140:8001/proposition/Maladie',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json", 
@@ -65,7 +65,7 @@ console.log(select+"  SLEEECCTTT");
     setModalVisible(false);
   };
   const ajouter=()=>{
-    fetch('http://26.22.221.140:8001/tiatanindrazana/Maladie?idmembre='+item.id+'&idmaladie='+country,    
+    fetch('http://26.22.221.140:8001/proposition/Maladie?idmembre='+item.id+'&idmaladie='+country,    
     {
       method:"POST",      
       headers : {"Content-Type":"application/json",
@@ -112,7 +112,7 @@ console.log(select+"  SLEEECCTTT");
          style={{ padding: 10 ,borderWidth:1,borderRadius: 100 ,borderColor:'#d8dbe9'}} // Styles du gradient
         >   
 
-    <Text style={{ color: 'white', textAlign: 'center' ,fontWeight:'bold',fontFamily:'poppins'}}>Ajout +</Text>
+    <Text style={{ color: 'white', textAlign: 'center' ,fontWeight:'bold',fontFamily:'poppins'}}>Maladie +</Text>
       </LinearGradient>      
     </TouchableOpacity>   
     </View>
@@ -124,7 +124,7 @@ console.log(select+"  SLEEECCTTT");
         {item.maladie}  
         
       </Text><Text style={{ color: 'grey' }}>{item.etatlib} </Text>
-      <TouchableOpacity style={{marginLeft:250}}><Text>Sup ❌ </Text></TouchableOpacity>
+      <TouchableOpacity style={{marginLeft:250}}><Text> ❌ </Text></TouchableOpacity>
     </View>
   </View>
 ))}

@@ -85,7 +85,7 @@ var Proposer = function (_a) {
         else {
             (_c = ref === null || ref === void 0 ? void 0 : ref.current) === null || _c === void 0 ? void 0 : _c.scrollTo(-200);
         }
-        fetch('http://26.22.221.140:8001/tiatanindrazana/Typeplat', {
+        fetch('http://26.22.221.140:8001/proposition/Typeplat', {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token }
             //  body: JSON.stringify({"email":email,"motdepasse":password})
@@ -154,10 +154,11 @@ var Proposer = function (_a) {
             if (!nbr) {
                 setNbr('1');
             }
-            if (!country) {
-                setCountry('1');
-            }
-            fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient=' + selectIng + '&type=' + selectype + '&budgetMin=' + buMin + '&budgetMax=' + buMax + '&nbrPers=' + nbr, {
+            /*
+                if(!country){
+                  setCountry('1');
+                }*/
+            fetch('http://26.22.221.140:8001/proposition/Proposer?ingredient=' + selectIng + '&type=' + selectype + '&budgetMin=' + buMin + '&budgetMax=' + buMax + '&nbrPers=' + nbr + '&option=' + country, {
                 method: "POST",
                 headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token }
                 //  body: JSON.stringify({"email":email,"motdepasse":password})
@@ -166,17 +167,12 @@ var Proposer = function (_a) {
                 .then(function (resultat) {
                 //  console.log(resultat.data);
                 console.log(resultat + " ity");
-                navigation.navigate("Proposition", { token: token, proposition: resultat });
-                //   console.log("coucououuu   "+resultat);
-                // setDat(resultat['data']);
-                /* if (dat.length > 0) {
-                   const updatedData = dat.map((ingredient) => ({
-                     checked: true,
-                     ...ingredient,
-                     
-                   }));
-                   setCheckedIngredients(updatedData);
-                 }*/
+                if (country == 1) {
+                    navigation.navigate("Proposition", { token: token, proposition: resultat });
+                }
+                if (country == 2) {
+                    navigation.navigate("PropositionPlan", { token: token, proposition: resultat });
+                }
             })["catch"](function (error) {
                 console.error('Erreur lors de la récupération des données:', error);
             });
@@ -185,7 +181,7 @@ var Proposer = function (_a) {
     };
     var showModal = function () {
         setModalVisible(true);
-        fetch('http://26.22.221.140:8001/tiatanindrazana/Ingredient_Interdit', {
+        fetch('http://26.22.221.140:8001/proposition/Ingredient_Interdit', {
             method: "GET",
             headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token }
             //  body: JSON.stringify({"email":email,"motdepasse":password})
@@ -223,8 +219,10 @@ var Proposer = function (_a) {
             react_1["default"].createElement(react_native_paper_1.Card, { style: CardStyle_1["default"].card },
                 react_1["default"].createElement(react_native_paper_1.Card.Content, null,
                     react_1["default"].createElement(react_native_2.Text, { style: { color: 'black', fontSize: 30, marginBottom: 20, fontWeight: 'bold', letterSpacing: 2, justifyContent: 'center', textAlign: 'center' } }, "A completer"),
-                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, onChangeText: function (text) { return setBuMin(text); }, placeholder: "Budget Min" }),
-                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, onChangeText: function (text) { return setBuMax(text); }, placeholder: "Budget Max" }),
+                    react_1["default"].createElement(react_native_2.Text, { style: { marginLeft: 15 } }, "Budget Minimum:"),
+                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, onChangeText: function (text) { return setBuMin(text); } }),
+                    react_1["default"].createElement(react_native_2.Text, { style: { marginLeft: 15 } }, "Budget Maximum:"),
+                    react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input, onChangeText: function (text) { return setBuMax(text); } }),
                     react_1["default"].createElement(react_native_1.View, { style: { flexDirection: 'row', justifyContent: 'flex-end' } },
                         react_1["default"].createElement(react_native_2.Text, null,
                             " ",
@@ -269,13 +267,13 @@ var Proposer = function (_a) {
                             react_1["default"].createElement(FontAwesome_1["default"], { name: 'search', size: 20, color: "white" }),
                             "    ")),
                     react_1["default"].createElement(react_native_gesture_handler_1.ScrollView, null,
-                        dat.map(function (ingredient, index) { return (react_1["default"].createElement(react_native_1.View, { key: index, style: { flexDirection: 'row', justifyContent: 'flex-end' } },
+                        dat.map(function (ingredient, index) { return (react_1["default"].createElement(react_native_1.View, { key: index, style: { flexDirection: 'row' } },
+                            react_1["default"].createElement(react_native_paper_1.Checkbox, { status: checkedIngredients[ingredient.idingredient] ? 'unchecked' : 'checked', onPress: function () { return handleCheckboxChange(ingredient.idingredient); } }),
                             react_1["default"].createElement(react_native_2.Text, null,
                                 ingredient.ingredient,
                                 " - ",
-                                ingredient.prenom),
-                            react_1["default"].createElement(react_native_paper_1.Checkbox, { status: checkedIngredients[ingredient.idingredient] ? 'unchecked' : 'checked', onPress: function () { return handleCheckboxChange(ingredient.idingredient); } }),
-                            react_1["default"].createElement(react_native_gesture_handler_1.TextInput, { style: CardStyle_1["default"].input3 }))); }),
+                                ingredient.prenom,
+                                " "))); }),
                         react_1["default"].createElement(react_native_2.Text, { style: { color: 'black', fontSize: 30, marginBottom: 60, fontWeight: 'bold', letterSpacing: 2, justifyContent: 'center', textAlign: 'center' } })),
                     react_1["default"].createElement(react_native_1.View, { style: { flexDirection: 'row', marginTop: 20 } },
                         react_1["default"].createElement(react_native_paper_1.Button, { onPress: validerIng, style: {} }, "Valider"),

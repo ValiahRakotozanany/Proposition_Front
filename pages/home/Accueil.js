@@ -29,7 +29,7 @@ const Accueil = ({navigation,route}) => {
     setIsCollapsed(!isCollapsed);
 
 
-    fetch('http://26.22.221.140:8001/tiatanindrazana/MaladieMembre?idmembre='+idmembre,    
+    fetch('http://26.22.221.140:8001/proposition/MaladieMembre?idmembre='+idmembre,    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -60,7 +60,7 @@ const Accueil = ({navigation,route}) => {
   React.useEffect(() => {
     console.log("usee");
     console.log("token '"+token+"'");
-    fetch('http://26.22.221.140:8001/tiatanindrazana/Membre_Famille',    
+    fetch('http://26.22.221.140:8001/proposition/Membre_Famille',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -80,7 +80,7 @@ const Accueil = ({navigation,route}) => {
   }, []);
 
   const navigateToMaladiesMembre = (item,token) => {
-    fetch('http://26.22.221.140:8001/tiatanindrazana/MaladieMembre?idmembre='+item.id,    
+    fetch('http://26.22.221.140:8001/proposition/MaladieMembre?idmembre='+item.id,    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -118,7 +118,7 @@ const Accueil = ({navigation,route}) => {
             
             </Text></Button>
             <View>              
-            <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>🪣    🖊️</Text></TouchableOpacity>
+            <TouchableOpacity style={{marginLeft:250,flexDirection:'right'}}><Text>✖️    🖊️</Text></TouchableOpacity>
             </View>
           </View>          
     </View>

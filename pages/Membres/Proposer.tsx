@@ -86,7 +86,7 @@ const Proposer = ({navigation}) => {
       ref?.current?.scrollTo(-200);
     }
 
-    fetch('http://26.22.221.140:8001/tiatanindrazana/Typeplat',    
+    fetch('http://26.22.221.140:8001/proposition/Typeplat',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -174,11 +174,11 @@ const validerProposition =()=>{
     if(!nbr){
       setNbr('1');
     }
-
+/*
     if(!country){
       setCountry('1');
-    }
-  fetch('http://26.22.221.140:8001/tiatanindrazana/Proposer?ingredient='+selectIng+'&type='+selectype+'&budgetMin='+buMin+'&budgetMax='+buMax+'&nbrPers='+nbr,    
+    }*/
+  fetch('http://26.22.221.140:8001/proposition/Proposer?ingredient='+selectIng+'&type='+selectype+'&budgetMin='+buMin+'&budgetMax='+buMax+'&nbrPers='+nbr+'&option='+country,    
   {
     method:"POST",      
     headers : {"Content-Type":"application/json",
@@ -190,20 +190,13 @@ const validerProposition =()=>{
     .then((resultat) => {
    //  console.log(resultat.data);
       console.log(resultat+" ity");
-     navigation.navigate("Proposition", { token, proposition: resultat });
-
-   //   console.log("coucououuu   "+resultat);
-     // setDat(resultat['data']);
-     /* if (dat.length > 0) {
-        const updatedData = dat.map((ingredient) => ({
-          checked: true,
-          ...ingredient,
-          
-        }));
-        setCheckedIngredients(updatedData);
-      }*/
-
-
+      if(country ==1){
+        navigation.navigate("Proposition", { token, proposition: resultat });
+      }
+      if(country ==2){
+        navigation.navigate("PropositionPlan", { token, proposition: resultat });
+      }
+   
     })
     .catch((error) => {
       console.error('Erreur lors de la récupération des données:', error);
@@ -217,7 +210,7 @@ const validerProposition =()=>{
   const showModal = () => {
     setModalVisible(true);
     
-    fetch('http://26.22.221.140:8001/tiatanindrazana/Ingredient_Interdit',    
+    fetch('http://26.22.221.140:8001/proposition/Ingredient_Interdit',    
     {
       method:"GET",      
       headers : {"Content-Type":"application/json",
@@ -269,14 +262,15 @@ const validerProposition =()=>{
        <Card style={CardStyle.card} >        
        <Card.Content>   
        <Text style={{ color: 'black', fontSize: 30, marginBottom: 20,fontWeight:'bold', letterSpacing: 2 ,justifyContent: 'center' ,textAlign:'center'}}>A completer</Text>
+       <Text style={{marginLeft:15}}>Budget Minimum:</Text> 
        <TextInput style={CardStyle.input} 
           onChangeText={text => setBuMin(text)}
-      
-      placeholder="Budget Min"
+            
     />       
+    <Text style={{marginLeft:15}}>Budget Maximum:</Text>
        <TextInput style={CardStyle.input} 
           onChangeText={text => setBuMax(text)}      
-      placeholder="Budget Max"
+      
     /><View style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
           <Text> <Dropdown
           style={[CardStyle.input3, isFocus && {borderColor: 'blue'}]}
@@ -299,11 +293,11 @@ const validerProposition =()=>{
             setIsFocus(false);
           }}
         /></Text>
-
 <TextInput placeholder="Nbr Pers"style={CardStyle.input3}  onChangeText={text => setNbr(text)}
        />
 
 </View>
+
 <TouchableOpacity  onPress={showModal} style={CardStyle.input}><Button><Text style={{color: 'grey', fontSize: 15 }}>Ingredients ...
          </Text></Button></TouchableOpacity>        
         
@@ -373,13 +367,14 @@ const validerProposition =()=>{
     </View>
     <ScrollView>
                {dat.map((ingredient,index) => (
-                <View key={index} style={{flexDirection: 'row',justifyContent: 'flex-end'}}>
-                <Text>{ingredient.ingredient} - {ingredient.prenom}</Text>
-                 <Checkbox
+                <View key={index} style={{flexDirection: 'row'}}>
+                <Checkbox
                 status={checkedIngredients[ingredient.idingredient] ? 'unchecked' : 'checked'}
                onPress={() => handleCheckboxChange(ingredient.idingredient)}
     />
-    <TextInput style={CardStyle.input3} />
+                <Text>{ingredient.ingredient} - {ingredient.prenom} </Text>
+                 
+    
 
         </View>
       ))}

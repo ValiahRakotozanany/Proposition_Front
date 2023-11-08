@@ -11,6 +11,7 @@ import MaladieMembre from '../pages/home/MaladieMembre';
 import AjoutMaladieM from '../pages/Membres/AjoutMaladieM';
 import Proposition from '../pages/home/Proposition';
 import DetailsProposition from '../pages/home/DetailsProposition';
+import PropositionPlan from '../pages/home/PropositionPlan';
 
 
 export default function Routes() {
@@ -27,6 +28,7 @@ export default function Routes() {
         <Stack.Screen name="Proposition" component={Proposition} />        
         <Stack.Screen name="AjoutMaladieM" component={AjoutMaladieM} />   
         <Stack.Screen name="DetailsProposition" component={DetailsProposition} /> 
+        <Stack.Screen name="PropositionPlan" component={PropositionPlan} /> 
       </Stack.Navigator>         
       </NavigationContainer>
     );
